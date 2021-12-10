@@ -1,4 +1,4 @@
-## Course - Docker for R users
+## :mortar_board: Docker for R users
 
 [![License: CC
 BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgreen.svg)](https://choosealicense.com/licenses/cc-by-4.0/)
@@ -20,15 +20,15 @@ file.
 
 ```r
 ## Install 'remotes' package (if necessary) ----
-install.package("remotes")
+install.packages("remotes")
 
 ## Install required packages ----
 remotes::install_deps()
 ```
 
-To contribute, make changes in the 
+To contribute, edit the 
 [`index.Rmd`](https://github.com/rdatatoolbox/course-docker/blob/main/index.Rmd) 
-file. To update the html presentation, run: 
+file. To update the `html` presentation, run: 
 
 ```r
 ## Convert Rmd to html ----
