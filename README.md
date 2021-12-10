@@ -4,12 +4,19 @@
 BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgreen.svg)](https://choosealicense.com/licenses/cc-by-4.0/)
 
 
-Code used to create the online presentation **Docker for R Users**. This course
-is part of the workshop :mortar_board: 
-**_Data Toolbox for Reproducible Research in Ecology_** co-organized by the 
+Code used to create the online presentation **Docker for R Users** available at:
+[**rdatatoolbox.github.io/course-docker**](https://rdatatoolbox.github.io/course-docker)
+
+<br />
+
+:point\_right:  This course is part of the workshop :mortar_board: 
+[**_Data Toolbox for Reproducible Research in Ecology_**](https://rdatatoolbox.github.io) co-organized by the 
 [FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/) 
 and the 
 [GdR EcoStat](https://sites.google.com/site/gdrecostat/).
+
+
+<br />
 
 
 ### Usage
@@ -26,6 +33,8 @@ install.packages("remotes")
 remotes::install_deps()
 ```
 
+<br />
+
 To contribute, edit the 
 [`index.Rmd`](https://github.com/rdatatoolbox/course-docker/blob/main/index.Rmd) 
 file. To update the `html` presentation, run: 
@@ -34,6 +43,9 @@ file. To update the `html` presentation, run:
 ## Convert Rmd to html ----
 rmarkdown::render("index.Rmd")
 ```
+
+
+<br />
 
 
 ### Citation
