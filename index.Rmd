@@ -1,5 +1,5 @@
 ---
-title: Introduction à Docker
+title: <br />Introduction à Docker
 subtitle: <i>the hardest part </i>&nbsp;`r fontawesome::fa_i("meh-rolling-eyes")`
 author: <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-CESAB }}]
 date: .inst[Jeudi 2 décembre 2021]
