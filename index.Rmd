@@ -1,8 +1,8 @@
 ---
-title: <br />Introduction à Docker
-subtitle: <i>the hardest part </i>&nbsp;`r fontawesome::fa_i("meh-rolling-eyes")`
-author: <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-CESAB }}]
-date: .inst[Jeudi 2 décembre 2021]
+title: <br />Docker for R users
+subtitle: "<br />"
+author: <br /><br />Nicolas CASAJUS<br />.inst[nicolas.casajus at fondationbiodiversite.fr]
+date: .inst[Jeudi 30 novembre 2022]
 output:
   xaringan::moon_reader:
     css: ["css/xaringan-themer.css", "css/custom.css"]
@@ -14,133 +14,34 @@ output:
       ratio: "4:3"
       titleSlideClass: ["right", "middle"]
       highlightStyle: 'zenburn'
-      highlightLines: true
+      highlightLines: false
       countIncrementalSlides: false
       slideNumberFormat: "%current% / %total%"
       beforeInit: "libs/macros.js"
 ---
 
 
-class: inverse, center, middle
 
-## C'est parti !
-
-<br />
-
-![](img/ahhhh.gif)
-
----
-
-## Il était une fois...
-
---
-
-**... un étudiant qui a passé plusieurs mois à analyser ses données. Comme il a tout
-compris à la vie, il travaille sous GNU/Linux. Son code est complexe et repose sur
-de nombreux logiciels et librairies système. Arrive le temps de partager son code avec
-ses collaborateurs. Mais, un de ses collaborateurs le contacte en lui disant que son code
-ne fonctionne pas. Ce dernier est sous Windows (_no comment_). Après plusieurs
-tentatives, il apparait que cela n'a rien à voir avec le code : c'est un problème
-d'environnement de travail.**
-
---
-
-Que faire `r fontawesome::fa_i("question-circle", class = "dark")`
+## Motivations
 
 
-.center[![](img/noidea.gif)]
-
----
-
-## Option 1
-
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Ecrire des tutoriels pour
-chaque OS (et version d'OS) pour installer toutes les dépendances système requises
-pour que le code fonctionne à peu près n'importe où
-
---
-
-  > **Mouais, bof...**
-  >
-  > J'ai autre chose à faire. En plus, j'ai pas accès à tous les OS...
-  >
-  > Et quid des futurs OS ?
-
----
-
-## Option 2 - Virtualisation
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Fixer le type d'OS (et
-sa version) et utiliser une machine virtuelle dans lequel il s'exécutera
-
-.center[![:scale 75%](img/vm.png)]
-
---
-
-C'est une solution qui marche et qui est encore utilisée.
-
---
-
-Le collaborateur devra alors :
-
-1. Installer un logiciel de virtualisation (par ex. Oracle Virtual Box)
-2. Télécharger l'ISO de l'OS (par ex. Ubuntu Focal Fossa 20.04 LTS)
-3. Installer l'OS dans la machine virtuelle
-4. Configurer la machine virtuelle (création de volumes de persistence)
-5. Télécharger et configurer toutes les dépendances
-6. Lancer le projet dans l'OS virtualisé
-
---
-
-**N.B.** Certaines étapes peuvent être automatisées (par ex. avec [**Vagrant**](https://www.vagrantup.com/))
-
----
-
-## Option 2 - Virtualisation
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Problèmes :
-1. c'est compliqué à mettre en place,
-1. c'est lourd (plusieurs Go juste pour l'OS et les dépendances),
-1. c'est gourmand en ressources (RAM, CPU).
+.center[![:scale 75%](img/collab.png)]
 
 
 ---
 
-## Option 3 - Conteneurisation
+## Motivations
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**Solution :** 
-s'orienter vers des solutions de **conteneurisation** telles que 
-[**Docker**](https://www.docker.com/) &nbsp; `r fontawesome::fa_i("docker")`
 
-<br /><br />
-
-![](img/docker.png)
+.center[![:scale 75%](img/collab-1.png)]
 
 
 ---
 
-## Virtualisation
+## Motivations
 
 
-![](img/versus-1.png)
-
----
-
-## Virtualisation _vs._ Conteneurisation
-
-
-![](img/versus-2.png)
-
-
---
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**Avantages de la conteneurisation :**
-
-- Extrêmement léger (exploitation du noyau Linux)
-- Utilisation réduite de ressources (RAM, CPU)
-- Partage des ressources ente les instances
-- Déploiement simple et instantané
+.center[![:scale 75%](img/collab-2.png)]
 
 
 ---
@@ -149,35 +50,56 @@ s'orienter vers des solutions de **conteneurisation** telles que
 
 .center[![:scale 75%](img/docker.png)]
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Plateforme open source permettant de :
+--
+
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Logiciel open source permettant de :
 
 - empaqueter une application avec toutes ses dépendances système
 - partager facilement un environnement de travail complet
 - déployer rapidement une application en production
 
---
+---
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Un conteneur est _isolé_ du système hôte : Docker permet donc de :
+## Docker en bref
+
+.center[![:scale 75%](img/docker.png)]
+
+
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Un conteneur est _isolé_ du système hôte.
+
+`r fontawesome::fa_i("docker")` permet donc de :
 
 - tester des choses sans crainte d'endommager son système hôte
+- utiliser différentes versions d'une librairie, d'un logiciel, etc.
 - garder son système hôte propre, en installant tout sur Docker
-- utiliser différentes versions d'une librairie, d'un serveur, etc.
 
 --
 
-`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;Idéal pour créer un environnement
-de developpement (basé sur Linux)
+> Idéal pour créer un environnement de developpement
+
+
+---
+
+## Virtualisation _vs._ Conteneurisation
+
+
+![](img/versus-2.png)
+
+--
+
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**Avantages de la conteneurisation :**
+
+- Extrêmement léger (exploitation du noyau Linux)
+- Utilisation réduite de ressources (RAM, CPU)
+- Déploiement simple et instantané
+
+
 
 ---
 
 ## La notion d'Image
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Ca a l'air super, mais concrètement, comment je crée un conteneur `r fontawesome::fa_i("question-circle", class = "dark")`
-
---
-
-
-Tout conteneur est basé sur une image que l'on crée soi-même ou qu'on récupère depuis un site d'archivage (comme le CRAN pour `r fontawesome::fa_i("r-project")`)
+> Tout **conteneur** est basé sur une **image** que l'on crée soi-même ou qu'on récupère depuis un site d'archivage
 
 --
 
@@ -186,6 +108,8 @@ Tout conteneur est basé sur une image que l'on crée soi-même ou qu'on récup�
 `r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Une **image `r fontawesome::fa_i("docker")`** est une sorte de conteneur figé : c'est un template **fixe** (une recette de cuisine) à partir duquel on créera un
 ou des conteneurs. Une image est `immuable`.
 
+<br />
+
 --
 
 `r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Un **conteneur `r fontawesome::fa_i("docker")`** est donc une instance (exécution) d'une image qui pourra être utilisée/modifiée une fois créée
@@ -193,361 +117,200 @@ ou des conteneurs. Une image est `immuable`.
 
 ---
 
-## La notion d'Image
-
-_Prenons un exemple tiré par les cheveux._
-
---
-
-_Quand je lance RStudio (équivalent à une image `r fontawesome::fa_i("docker")` dans notre exemple),
-j'ouvre une instance RStudio (équivalent, dans notre exemple, à un conteneur).
-Si je clique une seconde fois sur l'exécutable de RStudio, j'ouvre une seconde
-instance (un second conteneur) indépendante de la première._
-
-_Tout ce que je fais dans la première instance n'est pas répercuté dans la seconde. Et vice versa._
-
-_Plus important encore, ces modifications ne se répercutent pas dans l'exécutable de RStudio._
-
-C'est la même logique avec les images et conteneurs `r fontawesome::fa_i("docker")`.
-
-
----
-
 ## Docker Hub
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Où trouver des images `r fontawesome::fa_i("docker")` ?
-Sur un site d'archivage officiel [**Docker Hub**](https://hub.docker.com).
-C'est une sorte de CRAN (publique) pour `r fontawesome::fa_i("docker")`.
+Site d'archivage officiel : [**Docker Hub**](https://hub.docker.com)
 
 ![](img/docker-hub.png)
 
+
 ---
 
-class: inverse, center, middle
+## Rocker project
+
+Site officiel : [**https://rocker-project.org**](https://rocker-project.org/)
+
+
+![](img/rocker.png)
+
+
+---
+
+## Rocker project
+
+Site officiel : [**https://rocker-project.org**](https://rocker-project.org/)
+
+
+![](img/rocker-img.png)
+
+
+---
 
 ## Installation de Docker
 
----
+[**https://docs.docker.com/get-docker**](https://docs.docker.com/get-docker/)
 
-## Installation
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Docker s'installe sur GNU/Linux, et depuis peu, sur macOS et Windows 10 (installation différente selon l'édition, e.g. Home vs. Pro). Rendez-vous sur cette [**page **](https://docs.docker.com/get-docker/) et suivez les instructions.
-
---
-
-<br />
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Une autre façon d'accéder
-à Docker sans l'installer en local est d'utiliser la plateforme [**Play with Docker**](https://labs.play-with-docker.com/)
-(identifiant Docker requis)
-
-.pull-left[![](img/pwd.png)]
-
-.pull-right[
-C'est une plateforme qui donne accès à un serveur Alpine Linux sur lequel Docker et
-d'autres utilitaires (git, serveur ssh) sont préinstallés.
-La session dure 4h et on peut démarrer plusieurs instances.
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Durant l'exercice, on verra
-comment récupérer les données depuis ce serveur (ssh _vs._ git).
-]
-
----
-
-## Play with Docker - Navigateur
-
-![](img/pwd-1.png)
-
----
-
-## Play with Docker - Accès SSH
-
-![](img/pwd-2.png)
-
+![](img/docker-desktop.png)
 
 ---
 
 class: inverse, center, middle
 
-## Création d'un conteneur
+## Mode Développement
 
 ---
 
 
-## Création d'un conteneur
+## Création d'un conteneur - Dev
+
+
+![](img/workflow-2.png)
+
+---
+
+
+## Création d'un conteneur - Dev
+
 
 ![](img/workflow-1.png)
 
 
 ---
 
-## Mon premier conteneur
 
-**Je ne connais pas du tout GNU/Linux, mais j'aimerais bien l'essayer !**
+## Création d'un conteneur - Dev
+
+
+- Téléchargement de l'image RStudio [`rocker/rstudio`](https://hub.docker.com/r/rocker/rstudio)
+
+```sh
+docker pull rocker/rstudio
+```
+
+<br />
 
 --
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Qu'à cela ne tienne : nous allons télécharger une image `r fontawesome::fa_i("docker")` de Debian.
-Allons faire un tour sur [**Docker Hub**](https://hub.docker.com/search?q=debian&type=image).
-
-![](img/hub-search.png)
-
----
-
-## Mon premier conteneur
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;On peut également chercher une image `r fontawesome::fa_i("docker")`
-depuis le terminal
+- Téléchargement de l'image avec contrôle de la version de `r fontawesome::fa_i("r-project")` <br/>**(meilleure reproductibilité)**
 
 ```sh
-docker search debian
+docker pull rocker/rstudio:4.2.2
 ```
 
-```
-NAME      DESCRIPTION                                       STARS   OFFICIAL
-ubuntu    Ubuntu is a Debian-based Linux operating sys...   11465   [OK]
-debian    Debian is a Linux distribution that's compos...   3635    [OK]
-...       ...                                               ...
-```
+<br />
 
 --
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour télécharger l'image `r fontawesome::fa_i("docker")`, on peut lancer la commande suivante :
+- Liste des images locales
 
 ```sh
-docker pull debian
-```
+docker images
 
-`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;Cependant, en procédant ainsi nous téléchargerons la dernière version de Debian.
-Afin d'être reproductible, nous fixerons une version particulière (appelée **tag** sous `r fontawesome::fa_i("docker")`).
-
---
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Téléchargeons l'image `r fontawesome::fa_i("docker")` de Debian 10 (appelée Buster).
-
-```sh
-docker pull debian:buster                            # ou, docker pull debian:10
+# REPOSITORY                    TAG        IMAGE ID       CREATED       SIZE
+# rocker/rstudio                4.1.1      d8a2fe0cc0ff   9 days ago    1.92GB
+# rocker/rstudio                4.2.2      d110bab4d154   6 days ago    1.79GB
+# rocker/rstudio                latest     d110bab4d154   6 days ago    1.79GB
 ```
 
 ---
 
-## Mon premier conteneur
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Listons les images `r fontawesome::fa_i("docker")` présentes en local :
+## Création d'un conteneur - Dev
 
+- Création d'un conteneur
 
 ```sh
-docker images                                        # ou, docker image ls
+docker run --rm                        # Delete the stopped container 
+           -d                          # Daemon mode (run in background)
+           -p 8787:8787                # Port mapping HOST:CONTAINER
+           -e PASSWORD=yourpassword    # Password required (login: rstudio)
+           rocker/rstudio:4.2.2        # Name of the image
 ```
-
-```
-REPOSITORY      TAG         IMAGE ID          CREATED           SIZE
-debian          buster      1510e8501783      2 weeks ago       114MB
-```
-
---
 
 <br />
 
-**Deux choses importantes sont à noter :**
-
-1. Chaque image `r fontawesome::fa_i("docker")` dispose d'un identifiant unique (**IMAGE ID**)
-2. La taille de l'image `r fontawesome::fa_i("docker")` **!!!**
-
 --
 
-<br />
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour supprimer une image :
+- Sans authentification
 
 ```sh
-docker rmi 1510e8501783
+docker run --rm -dp 8787:8787 -e DISABLE_AUTH=true rocker/rstudio:4.2.2
 ```
 
 ---
 
-## Mon premier conteneur
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Créons notre conteneur, c'est-à-dire une
-instance de notre image `r fontawesome::fa_i("docker")`.
+## Création d'un conteneur - Dev
 
-```sh
-docker run -it debian:buster                  # ou, docker run -it 1510e8501783
-```
+- Dans un navigateur Web, visitez l'URL: <http://localhost:8787>
 
---
-
-<br />
-
-Notre prompt vient de changer :
-
-```
-root@ea8d63136eef:/#
-```
-
---
-
-<br />
-
-Nous sommes dans notre conteneur `r fontawesome::fa_i("docker")` !
-Le prompt nous dit que nous sommes connectés en tant qu'utilisateur `root` sur
-le conteneur dont l'identifiant est `ea8d63136eef` (différent de l'ID de l'image !)
-
---
-
-Vous ne me croyez pas ?
-
-
-```sh
-cat /etc/issue
-```
-
-```
-Debian GNU/Linux 10
-```
+.center[![:scale 90%](img/rstudio-1.png)<br/ >
+.small[Password: `yourpassword`]]
 
 ---
 
-## Mon premier conteneur
+## Création d'un conteneur - Dev
 
-Revenons sur la commande `docker run -it debian:buster`
+- Dans un navigateur Web, visitez l'URL: <http://localhost:8787>
 
---
-
-1. L'instruction `docker run` exécute une instance de l'image `r fontawesome::fa_i("docker")` **debian** portant le tag **buster**.
-Il faut noter que si cette image est absente de notre machine, alors `r fontawesome::fa_i("docker")` essaiera de la
-télécharger depuis Docker Hub. Donc, cette commande fait également un `docker pull` si besoin est.
-
---
-
-1. Le double drapeau `-it` indique que l'on souhaite interagir avec le conteneur.
-En général, les images `r fontawesome::fa_i("docker")` ne contenant qu'un OS (pas d'application)
-retournent toujours un shell (invite de commandes), mais pour y accéder, il faut demander
-l'accès (avec le drapeau `-it`).
-
---
-
-<br />
-
-Pour être certain d'interagir avec le shell, nous aurions pu indiquer la commande devant
-être exécutée au lancement du conteneur (ici, `bash`, le shell par défaut sous Debian)
-
-```sh
-docker run -it debian:buster bash
-```
-
----
-
-## Mon premier conteneur
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Si jamais nous avions oublié le drapeau
-`-it`, ce n'est pas grave. Nous avons toujours la possibilité de rentrer dans le conteneur avec :
-
-
-```sh
-docker exec –it ea8d63136eef bash
-```
-
-`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;Lorsqu'on quitte le conteneur avec la commande
-`exit`, celui-ci est stoppé si on est rentré dans le conteneur avec la commande `docker run`.
-Mais il n'est pas stoppé si on a accédé au shell avec `docker exec bash`.
-
---
-
-<br />
-
-Par défaut, Docker donne un nom aléatoire à un nouveau conteneur (notre conteneur
-a été nommé `magical_lehmann`). Mais, on peut lui en attribuer un de notre choix
-avec le drapeau `--name` :
-
-```sh
-docker run -it --name "debbie" debian:buster
-```
-
----
-
-class: inverse, center, middle
-
-## Gestion des conteneurs
-
+.center[![:scale 90%](img/rstudio-2.png)]
 
 ---
 
 ## Gestion des conteneurs
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour lister les conteneurs (processus) actifs :
+- Liste des containeurs
 
 ```sh
 docker ps
+
+# CONTAINER ID   IMAGE                  COMMAND   CREATED         STATUS         PORTS                    NAMES
+# baba86ace27a   rocker/rstudio:4.2.2   "/init"   7 seconds ago   Up 6 seconds   0.0.0.0:8787->8787/tcp   lucid_dubinsky
 ```
 
-```
-CONTAINER ID   IMAGE           COMMAND   CREATED     STATUS     PORTS   NAMES
-ea8d63136eef   debian:buster   "bash"    2 min ago   Up 2 min           magical_lehmann
-```
+<br />
 
---
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour arrêter un conteneur :
+- Arrêt d'un containeur
 
 ```sh
-docker stop ea8d63136eef                    # ou, docker stop magical_lehmann
+docker stop baba86ace27a
 ```
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour démarrer un conteneur :
+<br />
+
+- Suppression d'un containeur
 
 ```sh
-docker start ea8d63136eef                   # ou, docker start magical_lehmann
-```
-
---
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour supprimer un conteneur :
-
-```sh
-docker rm ea8d63136eef                      # après un docker stop
-docker rm -f ea8d63136eef                   # si le conteneur est actif
+docker rm baba86ace27a
 ```
 
 
 ---
 
-## Gestion des conteneurs
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour lister les conteneurs (processus) actifs et arrêtés :
+## Quelques commandes utiles
 
 ```sh
-docker ps -a
+## Images ----
+
+docker search {{ IMAGE }}                              # Search for an image
+docker pull {{ IMAGE }}                                # Download an image
+docker pull {{ IMAGE }}:{{ TAG }}                      # ... with a specific version
+docker images                                          # List local images
+docker rmi {{ IMAGE }}:{{ TAG }}                       # Delete a local image
+
+## Containers ----
+
+docker run -it {{ IMAGE }}:{{ TAG }}                   # Start a new container
+docker run -it --name "debbie" {{ IMAGE }}:{{ TAG }}   # ... with a custom name
+docker run --rm -it {{ IMAGE }}:{{ TAG }}              # Delete after stopped
+docker ps                                              # List containers
+docker ps -a                                           # List containers (stopped included)
+docker stop {{ CONTAINER }}                            # Stop a container
+docker start {{ CONTAINER }}                           # Re(start) a container
+docker rm {{ CONTAINER }}                              # Delete a container
+docker stats                                           # Containers statistics
 ```
-
-```
-CONTAINER ID   IMAGE           COMMAND   CREATED     STATUS             NAMES
-ea8d63136eef   debian:buster   "bash"    2 min ago   Up 2 min           magical_lehmann
-178b8649b677   debian:buster   "bash"    9 hours ago Exited (0) 2s ago  debbie
-```
---
-
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Enfin, pour connaitre les ressources consommées par les conteneurs
-actifs :
-
-```sh
-docker stats
-```
-
-```
-CONTAINER ID   NAME              CPU %  MEM USAGE / LIMIT   MEM %
-ea8d63136eef   magical_lehmann   0.00%  788KiB / 1.944GiB   0.04%
-```
-
---
-
-<br />
-
-`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;Après un reboot de la machine, les conteneurs
-actifs et stoppés existent toujours. Mais, ceux qui ont été supprimés avec `docker rm`, eux, n'existent plus.
-
 
 
 ---
@@ -559,19 +322,16 @@ class: inverse, center, middle
 
 ---
 
-## Persistance des conteneurs
+## Persistance des données
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp; Mais si un conteneur est isolé,
-comment je récupère mes données qui sont à l'intérieur ? Et, comment je donne accès aux
-données stockées sur ma machine à mon conteneur ?
+Un conteneur est **isolé** et n'est **pas persistant** : 
+tout ce qui est ajouté à l'intérieur (fichiers, logiciels, etc.) n'est pas 
+accessible, par défaut, depuis le système hôte. Et lorsque celui-ci est détruit,
+tout est perdu.
 
---
-<br />
+  - Comment récupérer des données créées à l'intérieur ?
+  - Comment envoyer des données dans le conteneur ?
 
-En effet, un conteneur n'est pas persistant : tout ce qui est ajouté à l'intérieur (fichiers, logiciels, etc.)
-n'est pas accessible depuis l'extérieur. Et lorsque celui-ci est détruit,
-tout est perdu ! Ce qui est un avantage pour bidouiller le contenu, mais un inconvénient
-lorsqu'on veut travailler sérieusement.
 
 --
 
@@ -586,460 +346,249 @@ lorsqu'on veut travailler sérieusement.
 
 ## Volumes de persistance
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Un volume<sup>*****</sup> est un dossier. L'idée est de créer un pont entre un dossier du conteneur et un dossier
-de notre machine. On parle de **volumes mapping**
-
-.footnote[
-***** Ce n'est pas tout à fait vrai, et un volume peut avoir un autre sens avec Docker, mais faisons simple...
-]
---
-
-Ainsi, un fichier/dossier créé dans le volume de la machine sera accessible par le conteneur via
-le volume lié. Et vice-versa.
-
-Le volume local (celui sur la machine) sera persistant même après
-la suppression du conteneur (et de son volume persistant).
-
---
+Un volume est  un pont entre un dossier du conteneur et un dossier
+de la machine hôte.
 
 `r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-C'est cela qu'on appelle la **persistance**
+On parle de **volumes mapping** : tout fichier/dossier créé dans le volume de la machine sera accessible par le conteneur via le volume lié. Et vice-versa.
+
+
+<br />
+
+Le volume local (celui de la machine hôte) sera persistant même après
+la suppression du conteneur (et donc de son volume persistant).
+
 
 
 ---
 
 ## Volumes de persistance
 
-Soit le dossier `projet/`
-présent dans mon dossier personnel (noté `~` sous Unix) de ma machine (macOS). Celui-ci contient le dossier
-`data/`, un fichier `.csv` à l'intérieur et le fichier `README.md` :
-
-```
-projet
-├── README.md
-└── data
-    └── data-1.csv
-```
-
---
-
-Je souhaite mapper ce volume à un dossier de mon **nouveau** conteneur, par ex.
-le dossier personnel de l'utilisateur **root** : `/root/`
-
---
-
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Pour cela, lorsque je créerai un nouveau conteneur basé sur l'image `debian:buster` avec
-la commande `docker run`, je rajouterai le drapeau `--volume` (ou `-v`) de la manière suivante :
+Pour créer un volume, il faut ajouter le drapeau `--volume` (ou `-v`) à la
+commande `docker run`.
 
 ```sh
--v chemin_absolu_vers_dossier_local:chemin_absolu_vers_dossier_conteneur
+-v dossier_local:dossier_conteneur
 ```
 
 --
 
 `r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;
-Les volumes mentionnés doivent exister tant sur la machine locale et dans le conteneur
-et il faut mentionner le chemin absolu vers ces dossiers.
-
----
-
-## Volumes de persistance
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Ce qui nous donne :
-
-```sh
-docker run -it --name "debbie" -v ~/projet:/root debian:buster
-```
-
---
-<br />
-Maintenant, si j'affiche le contenu du dossier `/root/` de mon conteneur
-
-```sh
-ls /root
-```
-
-```
-README.md  data
-```
-
-```sh
-ls /root/data/
-```
-
-```
-data-1.csv
-```
-
---
-<br />
-Créons un second fichier `README-2.md` dans mon conteneur
-
-```sh
-echo "Cree dans le conteneur" > /root/README-2.md
-```
-
----
-
-## Volumes de persistance
-
-Vérifions qu'il a bien été créé depuis le conteneur :
-
-```sh
-ls /root
-```
-
-```
-README-2.md  README.md	data
-```
-
-Affichons son contenu
-
-```sh
-cat /root/README-2.md
-```
-```
-Cree dans le conteneur
-```
+Les volumes mentionnés **doivent exister** tant sur la machine locale que dans le conteneur
+et il faut mentionner le **chemin absolu** vers ces dossiers.
 
 --
 
 <br />
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Qu'en est-il sur ma machine ?
+Un exemple avec `rocker/rstudio:4.2.2`
 
 ```sh
-tree ~/projet
+docker run --rm                                   # Delete container after stopped
+           -d                                     # Run in background
+           - p 8787:8787                          # Port mapping
+           -e DISABLE_AUTH=true                   # No password required
+           -v ~/Documents/project:/home/rstudio   # Volume mapping
+           rocker/rstudio:4.2.2                   # Image
 ```
-
-```
-projet
-├── README-2.md
-├── README.md
-└── data
-    └── data-1.csv
-```
-
-
----
-
-## Volumes de persistance
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Et si je supprime le conteneur, que deviendra mon dossier sur ma machine ?
-
---
-
-```sh
-docker stop debbie
-docker rm debbie
-```
-
---
-
-```sh
-tree ~/projet
-```
-
-```
-projet
-├── README-2.md
-├── README.md
-└── data
-    └── data-1.csv
-```
-
---
-
-<br />
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Les données ont été persistées **!!!**
-
 
 ---
 
 class: inverse, center, middle
 
-## Création d'une image
+## Mode production
 
 ---
 
-## Ajout d'outils
+## Mode production
+
+**Objectif :** partager les `données`,
+le `code`, les `résultats` et l'`environnement` de développement.
+
+--
+
+<br />
 
 `r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Que se passe-t-il si mon conteneur ne contient pas tous les outils (librairies, logiciels, etc.) dont j'ai besoin ?
-
---
-
-<br />
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**Option 1** : la méthode **sale**
-
-L'idée est de rentrer dans un conteneur, d'installer les outils manquants (`apt-get install`) et
-d'enregistrer le nouvel état du conteneur vers une nouvelle image (avec `docker commit`). A titre
-informatif (uniquement) :
-
-```sh
-docker commit id_image nom_nouvelle_image
-```
-
---
-
-C'est **très très sale** : les outils sont installés à la volée (depuis le conteneur) et
-on ne garde aucune trace des changements apportés. Niveau sécurité, c'est pas top... Et en plus,
-on n'est pas à l'abri de faire des mauvaises manip' et de compromettre la future image `r fontawesome::fa_i("docker")`
-
---
-
-<br />
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**Option 2** : le `Dockerfile`
+Création d'une **nouvelle image** spécifique à notre projet
 
 ---
 
-## Création d'image - Dockerfile
+## Dockerfile
 
 `r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Le `Dockerfile` est la recette qui va
 créer une nouvelle image `r fontawesome::fa_i("docker")`
 
 C'est un simple fichier texte (**sans extension**) qui fournit une suite d'instructions amenant
-à la construction de la future image. Chaque instruction va créer une couche dans l'image (système de Lego) : plus
-il y aura de couches, plus l'image sera lourde.
+à la construction de la future image. Il doit être placé à la racine du projet.
+
 
 --
 
 <br />
 
-De plus, il est rare de construire une image _from scratch_ : on se base très souvent
-sur une (seule) image existante.
+Il est rare de construire une image _from scratch_ : on se base très souvent
+sur une (seule) image existante (processus incrémental).
 
---
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Ainsi, le processus de création
-d'une image est **incrémental** et peut être comparé à un `git pull`
-
-Lors de la construction de l'image, si l'image de référence est présente sur la machine,
-pas besoin de la télécharger (à l'instar, lors d'un `git pull`, on ne télécharge pas
-l'ensemble de l'historique, juste les dernières modifications).
 
 
 ---
 
-## Création d'image - Dockerfile
+## Dockerfile
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**Objectif** : nous allons
-améliorer l'image `debian:buster` en lui ajoutant quelques utilitaires manquants :
+Exemple basique
 
-- `htop` : outil de monitoring du système
-- `nano` : éditeur de texte simple en ligne de commandes
-- `tree` : outil d'arborescence
-- `wget` : programme de téléchargement de fichiers
-
---
-
-Sur notre machine locale, nous allons créer un dossier, par ex. `mydebbie/`
-dans lequel nous allons créer un fichier qu'on va nommer `Dockerfile` et
-dans lequel nous écrire ces lignes.
-
---
 
 ```docker
-FROM debian:buster
+FROM rocker/rstudio:4.2.2
 
 MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+
+## Copy local project ----
+COPY . /home/rstudio/
+
+## Set working directory ----
+WORKDIR /home/rstudio/
 ```
-
---
-
-- La clause `FROM` permet de définir l'image de base (et sa version) sur laquelle on va bâtir
-la nouvelle image.
-
-- La clause `MAINTAINER` indique le créateur de l'image ainsi que le moyen de
-le contacter.
 
 ---
 
-## Création d'image - Dockerfile
+## Dockerfile
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Tel quel, ce `Dockerfile`
-construira une image identique à l'image `debian:buster`
+Exemple avec ajout d'outils
 
---
-
-Rajoutons les instructions qui permettront d'installer les utilitaires requis
 
 ```docker
-FROM debian:buster
+FROM rocker/rstudio:4.2.2
 
 MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
 
-RUN apt-get update -yq
-RUN apt-get install -yq --no-install-recommends htop nano tree wget
-```
---
+## Copy local project ----
+COPY . /home/rstudio/
 
-- La clause `RUN` permet de passer des commandes Linux classiques. Elle ajoute
-une couche supplémentaire à notre image, ce qui l'alourdi. Il est donc
-recommendé de limiter ces clauses et de les fusionner.
+## Set working directory ----
+WORKDIR /home/rstudio/
 
---
-
-```docker
-FROM debian:buster
-
-MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
-
-RUN apt-get update -yq \
-  && apt-get install -yq --no-install-recommends htop nano tree wget
+## Install system dependencies ----
+RUN sudo apt update -yq
+RUN sudo apt install -yq --no-install-recommends htop
 ```
 
 
 ---
 
-## Création d'image - Dockerfile
+## Dockerfile
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-On peut réduire encore la taille de la future image en supprimant le cache du gestionnaire
-`apt` qui contient les archives des utilitaires téléchargés.
+Exemple avec ajout d'outils
+
 
 ```docker
-FROM debian:buster
+FROM rocker/rstudio:4.2.2
 
 MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
 
-RUN apt-get update -yq \
-  && apt-get install -yq --no-install-recommends htop nano tree wget \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/
+## Copy local project ----
+COPY . /home/rstudio/
+
+## Set working directory ----
+WORKDIR /home/rstudio/
+
+## Install system dependencies ----
+RUN sudo apt update -yq \
+ && sudo apt install -yq --no-install-recommends htop
+```
+
+
+---
+
+## Dockerfile
+
+Exemple avec ajout d'outils
+
+
+```docker
+FROM rocker/rstudio:4.2.2
+
+MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+
+## Copy local project ----
+COPY . /home/rstudio/
+
+## Set working directory ----
+WORKDIR /home/rstudio/
+
+## Install system dependencies ----
+RUN sudo apt update -yq \
+ && sudo apt install -yq --no-install-recommends htop \
+ && sudo apt clean all \
+ && sudo apt purge \
+ && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+```
+
+
+---
+
+## Dockerfile
+
+Exemple avec installation de packages
+
+```docker
+FROM rocker/rstudio:4.2.2
+
+MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+
+## Install system dependencies ----
+RUN sudo apt update -yq \
+ && sudo apt install -yq --no-install-recommends libxml2-dev \
+ && sudo apt clean all \
+ && sudo apt purge \
+ && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+## Copy local project ----
+ENV FOLDER="/home/rstudio/"
+COPY . $FOLDER
+RUN chown -R rstudio:rstudio $FOLDER
+
+## Set working directory ----
+WORKDIR $FOLDER
+
+## Install R packages ----
+RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))" \
+ && R -e "remotes::install_deps()"
 ```
 
 ---
 
-## Création d'image - Dockerfile
+## Dockerfile
 
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Nous pouvons aussi créer un répertoire avec la commande Unix `mkdir`
+Exemple avec installation de packages - `renv`
 
 ```docker
-FROM debian:buster
+FROM rocker/rstudio:4.2.2
 
 MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
 
-RUN apt-get update -yq \
-  && apt-get install -yq --no-install-recommends htop nano tree wget \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/ \
-  && mkdir -p /root/data
+## Install system dependencies ----
+RUN sudo apt update -yq \
+ && sudo apt install -yq --no-install-recommends libxml2-dev \
+ && sudo apt clean all \
+ && sudo apt purge \
+ && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+## Copy local project ----
+ENV FOLDER="/home/rstudio/"
+COPY . $FOLDER
+RUN chown -R rstudio:rstudio $FOLDER
+
+## Set working directory ----
+WORKDIR $FOLDER
+
+## Install R packages ----
+ENV RENV_VERSION 0.16.0
+RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))" \
+ && R -e "remotes::install_github('rstudio/renv@${RENV_VERSION}')" \
+ && sudo -u rstudio R -e "renv::restore()"
 ```
----
-
-## Création d'image - Dockerfile
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Améliorons encore notre recette en définissant le répertoire par défaut
-du conteneur, par ex. `/root/data` (celui dans lequel on se retrouvera lorsqu'on rentrera dans le
-conteneur) avec la clause `WORKDIR`
-
-```docker
-FROM debian:buster
-
-MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
-
-RUN apt-get update -yq \
-  && apt-get install -yq --no-install-recommends htop nano tree wget \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/ \
-  && mkdir -p /root/data
-
-WORKDIR /root/data
-```
----
-
-## Création d'image - Dockerfile
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-J'ai du écrire deux fois `/root/data` : en programmation, c'est jamais bon...
-Heureusement, Docker offre la possibilité de manipuler des variables
-d'environnement avec la clause `ENV`. Optimisons donc le code.
-
-```docker
-FROM debian:buster
-
-MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
-
-ENV FOLDER="/root/data"
-
-RUN apt-get update -yq \
-  && apt-get install -yq --no-install-recommends htop nano tree wget \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/ \
-  && mkdir -p "$FOLDER"
-
-WORKDIR "$FOLDER"
-```
----
-
-## Création d'image - Dockerfile
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Je voudrais copier un fichier que j'ai en local (et dans le même dossier dans l'exemple) dans l'image,
-afin qu'il soit présent dans mes futurs conteneurs. Pour cela, j'ai la clause
-`COPY`
-
-```docker
-FROM debian:buster
-
-MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
-
-ENV FOLDER="/root/data"
-
-RUN apt-get update -yq \
-  && apt-get install -yq --no-install-recommends htop nano tree wget \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/ \
-  && mkdir -p "$FOLDER"
-
-COPY README.md "$FOLDER"
-
-WORKDIR "$FOLDER"
-```
-
----
-
-## Création d'image - Dockerfile
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Finalement, je peux aussi définir une commande par défaut qui sera exécutée lors
-du lancement d'un conteneur. Ici, ouvrons un shell `BASH`
-
-
-```docker
-FROM debian:buster
-
-MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
-
-ENV FOLDER="/root/data"
-
-RUN apt-get update -yq \
-  && apt-get install -yq --no-install-recommends htop nano tree wget \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/ \
-  && mkdir -p "$FOLDER"
-
-COPY README.md "$FOLDER"
-
-WORKDIR "$FOLDER"
-
-CMD ["bash"]
-```
-
-La clause `CMD` s'écrit toujours sous la forme d'un array (une sorte de liste) :
-`CMD ["executable", "param1", "param2", "..."]`
 
 ---
 
@@ -1053,14 +602,29 @@ Cela est particulièrement important lorsque la clause `COPY` copie des dossiers
 
 --
 
-<br />
-Etant sous macOS, je vais ignorer les fameux fichiers `.DS_Store` et pourquoi pas les fichiers
-et dossiers cachés de `r fontawesome::fa_i("git")` (ça grossirait l'image pour rien)
+Exemple de contenu d'un `.dockerignore`
 
-```sh
-echo ".DS_Store" > .dockerignore
-echo ".git" >> .dockerignore
-echo ".gitignore" >> .dockerignore
+
+```docker
+# macOS files ----
+.DS_Store
+
+# Large files ----
+.git
+renv/library
+renv/local
+
+# History files ----
+.Rhistory
+.Rapp.history
+
+# Session Data files ----
+.RData
+.Ruserdata
+
+# RStudio files ----
+*.Rproj
+.Rproj.user/
 ```
 
 
@@ -1069,288 +633,38 @@ echo ".gitignore" >> .dockerignore
 ## Build de l'image
 
 `r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Nous sommes prêt pour construire (builder) notre image à partir du `Dockerfile`.
-Pour cela, je vais utiliser la commande `docker build` avec le drapeau `-t` pour
-donner un nom à mon image. Je dois aussi spécifier le répertoire contenant ma recette.
-Ici, c'est le dossier dans lequel je vais lancer la commande, donc je peux écrire `.`
+Nous sommes fin prêts pour créer notre image à partir du `Dockerfile`.
+
 
 ```sh
-docker build -t buster .
+docker build -t "demo.docker" .
 ```
 
---
-
-Après quelques minutes, l'image est construite sur ma machine et a rejoint ma collection.
-
-```sh
-docker images
-```
-
-```
-REPOSITORY          TAG           IMAGE ID            CREATED             SIZE
-buster              latest        dd48c15a9389        46 minutes ago      121MB
-debian              buster        1510e8501783        2 weeks ago         114MB
-```
-
---
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Ma nouvelle image est légèrement plus grosse que celle d'origine : nous n'avons pas abusé des clauses `RUN`.
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Par défaut, la tag `latest` a été ajouté à la nouvelle image.
-
-
----
-
-## Utilisation de l'image
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Nous revoilà revenu au point de départ. Mais,
-avec une toute nouvelle image, faite maison qui plus est ! Créons-nous un conteneur pour l'fun
-
-```docker
-docker run -it --name "buster-1" buster
-```
 
 --
 
 <br />
 
-Et tapons quelques commandes :
-
-```sh
-pwd                                          # Répertoire de travail
-```
-
-```
-/root/data
-```
-
---
-
-<br />
-
-```sh
-tree ../                                     # Utilisation du nouvel utilitaire
-```
-
-```
-.
-└── data
-    └── README.md
-```
-
----
-
-## Résumé...
-
-![](img/workflow-2.png)
-
----
-
-## Résumé...
-
-![](img/workflow-3.png)
-
----
-
-## Résumé...
-
-![](img/workflow-4.png)
-
----
-
-## Résumé...
-
-![](img/workflow-5.png)
-
----
-
-## Résumé...
-
-![](img/workflow-6.png)
-
----
-
-## Résumé...
-
-![](img/workflow-7.png)
-
-
----
-
-class: inverse, center, middle
-
-## Partage d'une image
-
----
-
-## Publier sur le Docker Hub
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Nous allons voir qu'il est facile de publier une image `r fontawesome::fa_i("docker")` sur le
-[**Docker Hub**](https://hub.docker.com). Pour cela, il nous faut tout d'abord nous créer
-un identifiant Docker en se rendant sur cette [**page**](https://hub.docker.com/signup).
-Une fois créé, nous devons stocker notre Docker ID sur notre machine local grâce
-à la commande suivante (nous devrons saisir l'ID et son mot de passe)
-
-```docker
-docker login
-```
-
---
-<br />
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Nous allons déposer notre image sur Docker Hub dans notre repository personnel (publique).
-Cependant, nous avons un problème, car pour ce faire, le nom de notre image doit
-contenir notre identifiant Docker : `docker_id/image`.
-
-Pas de soucis : nous n'avons qu'à créer une nouvelle image à partir de notre
-`Dockerfile`. Comme elle sera identique, cela prendre 1s.
-
-```docker
-docker build -t nicolascasajus/buster .
-```
-
----
-
-## Publier sur le Docker Hub
-
-Vérifions :
-
-```docker
-docker images
-```
-
-```
-REPOSITORY              TAG        IMAGE ID         CREATED          SIZE
-buster                  latest     b389eba1f1c9     2 hours ago      121MB
-nicolascasajus/buster   latest     b389eba1f1c9     2 hours ago      121MB
-debian                  buster     1510e8501783     2 weeks ago      114MB
-```
-
---
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Docker lui a attribué la version
-`latest`. Pour publier sur le Hub, il est préférable de lui attribuer un autre tag,
-plus parlant. Allons-y
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Utilisation de la nouvelle image
 
 
 ```docker
-docker tag nicolascasajus/buster nicolascasajus/buster:1.0
-```
-
-Vérifions :
-
-```docker
-docker images
-```
-
-```
-REPOSITORY              TAG        IMAGE ID         CREATED          SIZE
-nicolascasajus/buster   1.0        b389eba1f1c9     2 hours ago      121MB
-```
-
-
----
-
-## Publier sur le Docker Hub
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-Il est temps de pusher !
-
-```sh
-docker push nicolascasajus/buster:1.0
+docker run --rm -dp 8787:8787 -e DISABLE_AUTH=true demo.docker
 ```
 
 ---
 
-## Publier sur le Docker Hub
+## Utilisation de rcompendium
 
-![](img/my-hub-1.png)
+Intégration de Docker à un compendium
 
----
-
-## Publier sur le Docker Hub
-
-![](img/my-hub-2.png)
-
----
-
-## Publier sur le Docker Hub
-
-![](img/my-hub-3.png)
-
-
----
-
-## Publier sur le Docker Hub
-
-
-![](img/workflow-7.png)
-
----
-
-## Partager le Dockerfile
-
-![](img/workflow-8.png)
-
-
----
-
-class: inverse, center, middle
-
-## `r fontawesome::fa_i("r-project")` & `r fontawesome::fa_i("docker")`
-
-
----
-
-## Initiative Rocker
-
-Si on se rappelle la définition d'un conteneur, celui-ci contient un environnement
-de travail mais aussi, et surtout, une application. Or, il nous manque l'application.
-Et idéalement, une application développée sous `r fontawesome::fa_i("r-project")`...
-
---
-
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-[**L'initiative Rocker**](https://www.rocker-project.org/)
-
-.center[![:scale 80%](img/rocker.png)]
-
----
-
-## Initiative Rocker
-
-.center[![:scale 80%](img/rocker-img.png)]
-
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Ressources:&nbsp;
-[**GitHub**](https://github.com/rocker-org/rocker-versioned2) &nbsp;|&nbsp;
-[**Docker**](https://hub.docker.com/r/rocker/r-ver)
-
----
-
-class: inverse, center, middle
-
-## Demo
-
-<br />
-
-[**{sfrocker}**](https://github.com/ahasverus/sfrocker)
-
-
----
-
-## Pour aller plus loin...
-
-`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
-[**Docker-compose**](https://docs.docker.com/compose/) - L'orchestrateur ultime
+```{r eval=FALSE}
+rcompendium::new_compendium(dockerfile = TRUE)
+rcompendium::new_compendium(dockerfile = TRUE, renv = TRUE)
+rcompendium::add_dockerfile()
+```
 
 
 <br />
 
-.center[![:scale 80%](img/docker-compose.png)]
+Exemple : https://github.com/ahasverus/demo.compendium

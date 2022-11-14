@@ -5,7 +5,7 @@ Version: 0.0.2
 Authors@R: c(
     person(given   = "Nicolas",
            family  = "Casajus",
-           role    = c("aut", "cre"),
+           role    = c("aut", "cre", "cph"),
            email   = "nicolas.casajus@fondationbiodiversite.fr",
            comment = c(ORCID = "0000-0002-5537-5294")))
 Description: Online presentation 'Docker for R Users'. This course is part of 
@@ -18,7 +18,7 @@ License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 SystemRequirements: pandoc, Rtools (for Windows users)
 Imports:
     fontawesome,
