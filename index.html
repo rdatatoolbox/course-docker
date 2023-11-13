@@ -3,7 +3,7 @@
   <head>
     <title> Docker for R users</title>
     <meta charset="utf-8" />
-    <meta name="author" content="  Nicolas CASAJUS .inst[nicolas.casajus at fondationbiodiversite.fr]" />
+    <meta name="author" content="  Nicolas CASAJUS .inst[Data scientist @ FRB-CESAB]" />
     <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <link href="libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
     <link href="libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
@@ -21,10 +21,10 @@ class: right, middle, title-slide
 ## <br />
 ]
 .author[
-### <br /><br />Nicolas CASAJUS<br />.inst[nicolas.casajus at fondationbiodiversite.fr]
+### <br /><br />Nicolas CASAJUS<br />.inst[Data scientist @ FRB-CESAB]
 ]
 .date[
-### .inst[Jeudi 30 novembre 2022]
+### .inst[Novembre 2023]
 ]
 
 ---
@@ -58,25 +58,19 @@ class: right, middle, title-slide
 
 ## Docker en bref
 
-.center[![:scale 75%](img/docker.png)]
+.center[![:scale 50%](img/docker.png)]
 
---
 
 <i class="far fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Logiciel open source permettant de :
 
 - empaqueter une application avec toutes ses dépendances système
 - partager facilement un environnement de travail complet
-- déployer rapidement une application en production
 
----
+--
 
-## Docker en bref
-
-.center[![:scale 75%](img/docker.png)]
-
+&lt;br /&gt;
 
 <i class="far fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Un conteneur est _isolé_ du système hôte.
-
 <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> permet donc de :
 
 - tester des choses sans crainte d'endommager son système hôte
@@ -148,7 +142,7 @@ Site officiel : [**https://rocker-project.org**](https://rocker-project.org/)
 
 ## Rocker project
 
-Site officiel : [**https://rocker-project.org**](https://rocker-project.org/)
+Site officiel : [**https://rocker-project.org/images/**](https://rocker-project.org/images/)
 
 
 ![](img/rocker-img.png)
@@ -594,7 +588,7 @@ RUN chown -R rstudio:rstudio $FOLDER
 WORKDIR $FOLDER
 
 ## Install R packages ----
-ENV RENV_VERSION 0.16.0
+ENV RENV_VERSION 1.0.3
 RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))" \
  &amp;&amp; R -e "remotes::install_github('rstudio/renv@${RENV_VERSION}')" \
  &amp;&amp; sudo -u rstudio R -e "renv::restore()"
