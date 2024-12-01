@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="index_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<link href="index_files/libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
+<link href="index_files/libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.39">
+
+  <title>Docker for R users</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-f7942b6ea76f4fab7f47bd856905c374.css">
+  <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+
+<section class="slide level2">
+
+<!-- Insert section 'Title slide' -->
+<div class="title-slide-container">
+<div class="title-slide-content">
+<div class="columns">
+<!-- Title slide logo --><div class="column logo" style="width:32%;">
+<p><img data-src="images/logo-title-slide.png"></p>
+</div><!-- Title slide content --><div class="column information" style="width:68%;">
+<div class="title">
+<p>Docker for R users</p>
+</div>
+<div class="subtitle">
+<p>A gentle introduction to containerization</p>
+</div>
+<div class="date">
+<p>December 2024</p>
+</div>
+<div class="columns authors">
+<div class="column author" style="width:32%;">
+<p>Nicolas Casajus<br> <a href="mailto:rdev.nc@gmail.com"><i class="fa-solid fa-envelope" aria-label="envelope"></i></a> <a href="https://nicolascasajus.fr"><i class="fa-solid fa-globe" aria-label="globe"></i></a> <a href="https://github.com/ahasverus"><i class="fa-brands fa-github" aria-label="github"></i></a> <a href="https://orcid.org/0000-0002-5537-5294"><i class="fa-brands fa-orcid" aria-label="orcid"></i></a> <a href="https://scholar.google.fr/citations?user=n1swa1UAAAAJ"><i class="ai  ai-google-scholar"></i></a></p>
+</div><!-- Second author --><div class="column author" style="width:32%;">
+<!--
+Author name<br/>
+[](mailto:author-email)
+[](author-website)
+[](author-github)
+[](author-orcid)
+-->
+</div><!-- Third author --><div class="column author" style="width:32%;">
+<!--
+Author name<br/>
+[](mailto:author-email)
+[](author-website)
+[](author-github)
+[](author-orcid)
+-->
+</div><!-- Close {.columns .authors} -->
+</div>
+<div class="columns affiliations">
+<div class="column affiliation" style="width:32%;">
+<p>Senior data scientist <br> <code><span class="citation" data-cites="FRB-CESAB">@FRB-CESAB</span></code> &nbsp; <a href="https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/"><i class="fa-solid fa-globe" aria-label="globe"></i></a> &nbsp; <a href="https://github.com/frbcesab"><i class="fa-brands fa-github" aria-label="github"></i></a></p>
+</div><!-- Second affiliation --><div class="column affiliation" style="width:32%;">
+<!--
+ &nbsp;[Affiliation](affiliation-url)
+-->
+</div><!-- Third affiliation --><div class="column affiliation" style="width:32%;">
+<!--
+ &nbsp;[Affiliation](affiliation-url)
+-->
+</div><!-- Close {.columns .affiliations} -->
+</div>
+<!-- Close {.column .information} -->
+</div><!-- Close {.columns} -->
+</div>
+<!-- Close {.title-slide-content} -->
+</div>
+<!-- Close {.title-slide-container} -->
+</div>
+<!-- Insert section 'Slides' -->
+</section>
+<section id="context" class="slide level2">
+<h2>Context</h2>
+<ul>
+<li><strong><code>Research compendium</code></strong> for file organization</li>
+<li>Writing <strong><code>functions</code></strong> for code optimization</li>
+<li><strong><code>Quarto</code></strong> | <strong><code>RMarkdown</code></strong> for literate programming</li>
+<li><strong><code>git</code></strong> for version control</li>
+<li><strong><code>GitHub</code></strong> for sharing &amp; collaboration</li>
+<li><strong><code>renv</code></strong> to freeze <i class="fa-brands fa-r-project" aria-label="r-project"></i> packages (and their versions)</li>
+</ul>
+<p><br></p>
+<div class="fragment">
+<p><i class="fa-solid fa-circle-right" aria-label="circle-right"></i> &nbsp;What about the <strong>computational environment</strong>?</p>
+<div class="columns">
+<div class="column" style="width:4%;">
+
+</div><div class="column" style="width:97%;">
+<ul>
+<li>Software and system libraries</li>
+<li>Operating system</li>
+</ul>
+</div></div>
+</div>
+</section>
+<section id="context-1" class="slide level2">
+<h2>Context</h2>
+<div class="columns">
+<div class="column center" style="width:50%;">
+<p><img data-src="images/collab.png" style="width:85.0%"></p>
+</div><div class="column center" style="width:50%;">
+
+</div></div>
+</section>
+<section id="context-2" class="slide level2">
+<h2>Context</h2>
+<div class="columns">
+<div class="column center" style="width:50%;">
+<p><img data-src="images/collab.png" style="width:85.0%"></p>
+</div><div class="column center" style="width:50%;">
+<p><img data-src="images/collab-1.png" style="width:85.0%"></p>
+</div></div>
+</section>
+<section id="context-3" class="slide level2">
+<h2>Context</h2>
+<div class="columns">
+<div class="column center" style="width:50%;">
+<p><img data-src="images/collab.png" style="width:85.0%"></p>
+</div><div class="column center" style="width:50%;">
+<p><img data-src="images/collab-2.png" style="width:85.0%"></p>
+</div></div>
+</section>
+<section id="introducing-docker" class="slide level2">
+<h2>Introducing Docker</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/docker-logo.jpg" class="quarto-figure quarto-figure-center" style="width:90.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:70%;">
+<ul>
+<li>Free and open-source software</li>
+<li>Containerization technology</li>
+<li>Platform for developing, shipping, and running applications</li>
+<li>Docker containers are lightweight, portable and isolated from the underlying infrastructure and other containers</li>
+</ul>
+</div></div>
+<div class="fragment">
+<p><br></p>
+<!--
+
+> **Containerization** allows applications and their dependencies to be packaged into self-contained units called _containers_.
+
+
+. . .
+
+-->
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/versus-2.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="concepts" class="slide level2">
+<h2>Concepts</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/docker-pipeline.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+<p><br></p>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="center">
+<p><strong><code>Dockerfile</code></strong><br> <em>the blueprint</em></p>
+</div>
+<ul>
+<li>A plain text file</li>
+<li>A set of <strong>instructions</strong> to create a custom image</li>
+<li>Can be shipped w/ the compendium</li>
+</ul>
+</div><div class="column" style="width:33%;">
+
+</div><div class="column" style="width:33%;">
+
+</div></div>
+</div>
+</section>
+<section id="concepts-1" class="slide level2">
+<h2>Concepts</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/docker-pipeline.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="center">
+<p><strong><code>Dockerfile</code></strong><br> <em>the blueprint</em></p>
+</div>
+<ul>
+<li>A plain text file</li>
+<li>A set of <strong>instructions</strong> to create a custom image</li>
+<li>Can be shipped w/ the compendium</li>
+</ul>
+</div><div class="column" style="width:33%;">
+<div class="center">
+<p><strong><code>Docker Image</code></strong><br> <em>the template</em></p>
+</div>
+<ul>
+<li>Built from a Dockerfile</li>
+<li>A read-only (immutable) <strong>template</strong> used to create containers</li>
+<li>Can be shared on Docker Hub</li>
+</ul>
+</div><div class="column" style="width:33%;">
+
+</div></div>
+</section>
+<section id="concepts-2" class="slide level2">
+<h2>Concepts</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/docker-pipeline.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="center">
+<p><strong><code>Dockerfile</code></strong><br> <em>the blueprint</em></p>
+</div>
+<ul>
+<li>A plain text file</li>
+<li>A set of <strong>instructions</strong> to create a custom image</li>
+<li>Can be shipped w/ the compendium</li>
+</ul>
+</div><div class="column" style="width:33%;">
+<div class="center">
+<p><strong><code>Docker Image</code></strong><br> <em>the template</em></p>
+</div>
+<ul>
+<li>Built from a Dockerfile</li>
+<li>A read-only (immutable) <strong>template</strong> used to create containers</li>
+<li>Can be shared on Docker Hub</li>
+</ul>
+</div><div class="column" style="width:33%;">
+<div class="center">
+<p><strong><code>Docker Container</code></strong><br> <em>the executive instance</em></p>
+</div>
+<ul>
+<li>Generated from a Docker image</li>
+<li>Contains the entire package needed to <strong>run the application</strong></li>
+<li>User interacts only w/ containers</li>
+</ul>
+</div></div>
+<div class="fragment">
+<p><br></p>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; A Docker image is <strong>immutable</strong> and will always create the same container<br></p>
+</div>
+</section>
+<section id="where-can-i-find-docker-images" class="slide level2">
+<h2>Where can I find Docker images?</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; <a href="https://hub.docker.com/search"><strong>Docker Hub</strong></a>: the Official Docker registry</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/docker-hub.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</section>
+<section id="where-can-i-find-docker-images-for" class="slide level2">
+<h2>Where can I find Docker images for <i class="fa-brands fa-r-project" aria-label="r-project"></i>?</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; The <a href="https://rocker-project.org/"><strong>Rocker project</strong></a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/rocker-img.png" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+</figure>
+</div>
+</section>
+<section id="download-a-docker-image" class="slide level2">
+<h2>Download a Docker image</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href=""></a><span class="co">## Download latest version of R ----</span></span>
+<span id="cb1-2"><a href=""></a><span class="ex">docker</span> pull rocker/r-ver</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; <code>docker pull</code> will download a Docker image from <a href="https://hub.docker.com/r/rocker/r-ver">Docker Hub</a></p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+
+</div></div>
+</section>
+<section id="download-a-docker-image-1" class="slide level2">
+<h2>Download a Docker image</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="co">## Download latest version of R ----</span></span>
+<span id="cb2-2"><a href=""></a><span class="ex">docker</span> pull rocker/r-ver</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; <code>docker pull</code> will download a Docker image from <a href="https://hub.docker.com/r/rocker/r-ver">Docker Hub</a></p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="co">## List Docker images available locally ----</span></span>
+<span id="cb3-2"><a href=""></a><span class="ex">docker</span> images</span>
+<span id="cb3-3"><a href=""></a></span>
+<span id="cb3-4"><a href=""></a><span class="co">## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE</span></span>
+<span id="cb3-5"><a href=""></a><span class="co">## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+</section>
+<section id="download-a-docker-image-2" class="slide level2">
+<h2>Download a Docker image</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href=""></a><span class="co">## Download latest version of R ----</span></span>
+<span id="cb4-2"><a href=""></a><span class="ex">docker</span> pull rocker/r-ver</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; <code>docker pull</code> will download a Docker image from <a href="https://hub.docker.com/r/rocker/r-ver">Docker Hub</a></p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="co">## List Docker images available locally ----</span></span>
+<span id="cb5-2"><a href=""></a><span class="ex">docker</span> images</span>
+<span id="cb5-3"><a href=""></a></span>
+<span id="cb5-4"><a href=""></a><span class="co">## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE</span></span>
+<span id="cb5-5"><a href=""></a><span class="co">## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href=""></a><span class="co">## Download a specific version of R ----</span></span>
+<span id="cb6-2"><a href=""></a><span class="ex">docker</span> pull rocker/r-ver:4.4.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; For a <strong>better reproducibility</strong>, specify the <strong>tag</strong> (version) of the image</p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href=""></a><span class="co">## List Docker images available locally ----</span></span>
+<span id="cb7-2"><a href=""></a><span class="ex">docker</span> images</span>
+<span id="cb7-3"><a href=""></a></span>
+<span id="cb7-4"><a href=""></a><span class="co">## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE</span></span>
+<span id="cb7-5"><a href=""></a><span class="co">## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB</span></span>
+<span id="cb7-6"><a href=""></a><span class="co">## rocker/r-ver   4.4.2     c2909963ee34   12 days ago     938MB</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+</section>
+<section id="download-a-docker-image-3" class="slide level2">
+<h2>Download a Docker image</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href=""></a><span class="co">## Download latest version of R ----</span></span>
+<span id="cb8-2"><a href=""></a><span class="ex">docker</span> pull rocker/r-ver</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; <code>docker pull</code> will download a Docker image from <a href="https://hub.docker.com/r/rocker/r-ver">Docker Hub</a></p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href=""></a><span class="co">## List Docker images available locally ----</span></span>
+<span id="cb9-2"><a href=""></a><span class="ex">docker</span> images</span>
+<span id="cb9-3"><a href=""></a></span>
+<span id="cb9-4"><a href=""></a><span class="co">## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE</span></span>
+<span id="cb9-5"><a href=""></a><span class="co">## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href=""></a><span class="co">## Download a specific version of R ----</span></span>
+<span id="cb10-2"><a href=""></a><span class="ex">docker</span> pull rocker/r-ver:4.4.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; For a <strong>better reproducibility</strong>, specify the <strong>tag</strong> (version) of the image</p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href=""></a><span class="co">## List Docker images available locally ----</span></span>
+<span id="cb11-2"><a href=""></a><span class="ex">docker</span> images</span>
+<span id="cb11-3"><a href=""></a></span>
+<span id="cb11-4"><a href=""></a><span class="co">## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE</span></span>
+<span id="cb11-5"><a href=""></a><span class="co">## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB</span></span>
+<span id="cb11-6"><a href=""></a><span class="co">## rocker/r-ver   4.4.2     c2909963ee34   12 days ago     938MB</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href=""></a><span class="co">## Download a specific version of R ----</span></span>
+<span id="cb12-2"><a href=""></a><span class="ex">docker</span> pull rocker/r-ver:4.0.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; With Docker it’s easy to install <strong>different versions</strong> of the same software</p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href=""></a><span class="co">## List Docker images available locally ----</span></span>
+<span id="cb13-2"><a href=""></a><span class="ex">docker</span> images</span>
+<span id="cb13-3"><a href=""></a></span>
+<span id="cb13-4"><a href=""></a><span class="co">## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE</span></span>
+<span id="cb13-5"><a href=""></a><span class="co">## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB</span></span>
+<span id="cb13-6"><a href=""></a><span class="co">## rocker/r-ver   4.4.2     c2909963ee34   12 days ago     938MB</span></span>
+<span id="cb13-7"><a href=""></a><span class="co">## rocker/r-ver   4.0.1     3c5754bb465f   20 months ago   854MB</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+</section>
+<section id="run-a-docker-container" class="slide level2">
+<h2>Run a Docker container</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Example with the Docker image <code>rocker/r-ver</code></p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href=""></a><span class="co">## Run a container from an image  ----</span></span>
+<span id="cb14-2"><a href=""></a><span class="ex">docker</span> run <span class="at">-it</span> rocker/r-ver:4.4.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; The flag <strong><code>-it</code></strong> allows you to interact w/ the container</p>
+<p>By default, the <code>rocker/r-ver</code> image provides direct access to <i class="fa-brands fa-r-project" aria-label="r-project"></i></p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<pre><code>R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+&gt;</code></pre>
+</div></div>
+<div class="fragment">
+<p><br></p>
+<p>We are using <i class="fa-brands fa-r-project" aria-label="r-project"></i> inside a Docker container and we can work as usual.</p>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="do">## Create a file from R inside a container  ----</span></span>
+<span id="cb16-2"><a href=""></a><span class="fu">file.create</span>(<span class="st">"README.md"</span>)</span>
+<span id="cb16-3"><a href=""></a></span>
+<span id="cb16-4"><a href=""></a><span class="do">## Install a package ----</span></span>
+<span id="cb16-5"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Type <code>q()</code> to quit <i class="fa-brands fa-r-project" aria-label="r-project"></i> and stop the container.</p>
+</div></div>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="small">
+<p><i class="fa-solid fa-warning" aria-label="warning"></i>&nbsp; <strong>Important</strong></p>
+<ul>
+<li>Data created inside a Docker container do <strong>not persist</strong>: the <code>README.md</code> file and the <code>devtools</code> package will be lost when closing the container.</li>
+<li>Docker containers are <strong>isolated</strong>: containers don’t have access to user files (Guest OS)</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="run-a-docker-container-1" class="slide level2">
+<h2>Run a Docker container</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Example with the Docker image <code>rocker/r-ver</code></p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href=""></a><span class="co">## Run a container from an image  ----</span></span>
+<span id="cb17-2"><a href=""></a><span class="ex">docker</span> run <span class="at">-it</span> rocker/r-ver:4.4.2 bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Instead we can access to a <strong>Linux Shell</strong> by adding <strong><code>bash</code></strong> and open <i class="fa-brands fa-r-project" aria-label="r-project"></i> later from the container by calling <strong><code>R</code></strong></p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<pre><code>root@c038f516feb1:/# </code></pre>
+</div></div>
+</section>
+<section id="run-a-docker-container-2" class="slide level2">
+<h2>Run a Docker container</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Example with the Docker image <code>rocker/r-ver</code></p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href=""></a><span class="co">## Run a container from an image  ----</span></span>
+<span id="cb19-2"><a href=""></a><span class="ex">docker</span> run <span class="at">-it</span> rocker/r-ver:4.4.2 bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Instead we can access to a <strong>Linux Shell</strong> by adding <strong><code>bash</code></strong> and open <i class="fa-brands fa-r-project" aria-label="r-project"></i> later from the container by calling <strong><code>R</code></strong></p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<pre><code>root@c038f516feb1:/# 
+
+root@c038f516feb1:/# cat /etc/issue
+## Ubuntu 24.04.1 LTS</code></pre>
+</div></div>
+<div class="fragment">
+<p><br></p>
+<p>We are using <strong><code>bash</code></strong> inside a Docker container and we can work as usual.</p>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href=""></a><span class="co">## Update system  ----</span></span>
+<span id="cb21-2"><a href=""></a><span class="ex">apt</span> update <span class="kw">&amp;&amp;</span> <span class="ex">apt</span> upgrade <span class="at">-y</span></span>
+<span id="cb21-3"><a href=""></a></span>
+<span id="cb21-4"><a href=""></a><span class="co">## Install a software ----</span></span>
+<span id="cb21-5"><a href=""></a><span class="ex">apt</span> install figlet</span>
+<span id="cb21-6"><a href=""></a></span>
+<span id="cb21-7"><a href=""></a><span class="co">## Use new tool ----</span></span>
+<span id="cb21-8"><a href=""></a><span class="ex">figlet</span> <span class="st">'Inside Docker'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code> ___           _     _        ____             _
+|_ _|_ __  ___(_) __| | ___  |  _ \  ___   ___| | _____ _ __
+ | || '_ \/ __| |/ _` |/ _ \ | | | |/ _ \ / __| |/ / _ \ '__|
+ | || | | \__ \ | (_| |  __/ | |_| | (_) | (__|   &lt;  __/ |
+|___|_| |_|___/_|\__,_|\___| |____/ \___/ \___|_|\_\___|_|</code></pre>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<p><br></p>
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Type <code>exit</code> to quit <strong><code>bash</code></strong> and stop the container</p>
+</div></div>
+</div>
+</section>
+<section id="container-monitoring" class="slide level2">
+<h2>Container monitoring</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Use <code>docker ps</code> to check the status of your containers</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href=""></a><span class="co">## Monitor Docker containers  ----</span></span>
+<span id="cb23-2"><a href=""></a><span class="ex">docker</span> ps <span class="at">-a</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Add the flag <strong><code>-a</code></strong> to list stopped containers too</p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+
+</div></div>
+<p><br></p>
+<pre><code>CONTAINER ID   IMAGE                COMMAND   CREATED          STATUS                      PORTS     NAMES
+f466117bb7f3   rocker/r-ver:4.0.1   "R"       9 seconds ago    Up 8 seconds                          beautiful_poitras
+cb1f8498bc55   rocker/r-ver:4.4.2   "bash"    21 seconds ago   Exited (0) 17 seconds ago             zealous_borg</code></pre>
+<div class="fragment">
+<p><br></p>
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; You can add the flag <strong><code>--rm</code></strong> to <code>docker run</code> to automatically destroy the container when it’s stopped.</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href=""></a><span class="co">## Start a new Docker container ----</span></span>
+<span id="cb25-2"><a href=""></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span> rocker/r-ver:4.4.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+
+</div></div>
+</div>
+</section>
+<section id="container-management" class="slide level2">
+<h2>Container management</h2>
+<p>Some useful commands to manage your containers</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href=""></a><span class="co">## Restart a Docker container  ----</span></span>
+<span id="cb26-2"><a href=""></a><span class="ex">docker</span> start cb1f8498bc55</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Use <strong><code>docker start</code></strong> to restart a stopped container</p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+
+</div></div>
+<div class="fragment">
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href=""></a><span class="co">## Re-enter inside a Docker container  ----</span></span>
+<span id="cb27-2"><a href=""></a><span class="ex">docker</span> exec <span class="at">-it</span> cb1f8498bc55 bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Use <strong><code>docker exec -it</code></strong> to re-enter inside a container</p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+
+</div></div>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href=""></a><span class="co">## Stop a Docker container  ----</span></span>
+<span id="cb28-2"><a href=""></a><span class="ex">docker</span> stop cb1f8498bc55</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Use <strong><code>docker stop</code></strong> to stop a container</p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+
+</div></div>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href=""></a><span class="co">## Destroy a Docker container  ----</span></span>
+<span id="cb29-2"><a href=""></a><span class="ex">docker</span> rm cb1f8498bc55</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Use <strong><code>docker rm</code></strong> to destroy a container</p>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+
+</div></div>
+</div>
+</section>
+<section id="volume-mapping" class="slide level2">
+<h2>Volume mapping</h2>
+<ul>
+<li>Links a Docker container to a persistent storage location on the host system</li>
+<li>Allows <strong>data to persist</strong> even after the container is stopped or removed</li>
+<li>Enables <strong>data sharing</strong> between containers and the host system</li>
+</ul>
+<p><br></p>
+<blockquote>
+<p>Any file created in the host volume (directory) will be accessible by the container through the linked volume.<br>And vice versa.</p>
+</blockquote>
+<div class="fragment">
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href=""></a><span class="co">## Create a volume mapping  ----</span></span>
+<span id="cb30-2"><a href=""></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">-v</span> host_directory:container_directory rocker/r-ver:4.4.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Use the flag <strong><code>-v</code></strong> to map a volume</p>
+</div>
+</div></div>
+</div>
+</section>
+<section id="rstudio-image" class="slide level2">
+<h2>RStudio image</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Another example: the Docker image <code>rocker/rstudio</code></p>
+<blockquote>
+<p>Contains <a href="https://posit.co/download/rstudio-server/">RStudio Server</a> and enables you to run the RStudio from your web browser</p>
+</blockquote>
+<div class="fragment">
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href=""></a><span class="co">## Download RStudio server image  ----</span></span>
+<span id="cb31-2"><a href=""></a><span class="ex">docker</span> pull rocker/rstudio:4.4.2</span>
+<span id="cb31-3"><a href=""></a></span>
+<span id="cb31-4"><a href=""></a><span class="co">## Start RStudio server container ----</span></span>
+<span id="cb31-5"><a href=""></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-p</span> 8787:8787 rocker/rstudio:4.4.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; The flag <strong><code>-p</code></strong> specifies the <strong>port mapping</strong> (access a container through a web browser)</p>
+</div>
+</div></div>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; On a web browser visit <a href="http://localhost:8787" class="uri">http://localhost:8787</a></p>
+<ul>
+<li>Username is <strong><code>rstudio</code></strong></li>
+<li>Password is displayed in the terminal</li>
+</ul>
+</div>
+</div><div class="column" style="width:52%;">
+<p><img data-src="images/rstudio-login.png" style="width:35.0%"></p>
+</div></div>
+</div>
+</section>
+<section id="rstudio-image-1" class="slide level2">
+<h2>RStudio image</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/rstudio-docker.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Press <strong><code>CTRL + C</code></strong> in the terminal to stop the container</p>
+</div>
+</section>
+<section id="dockerfile" class="slide level2">
+<h2>Dockerfile</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/docker-pipeline.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+<p><br></p>
+<p>A <strong>Dockerfile</strong> is a blueprint (recipe) defining how to create a Docker image</p>
+<ul>
+<li>A plain text file</li>
+<li>A set of <strong>instructions</strong> to create a custom image</li>
+<li>Always based on another Docker image</li>
+<li>The <strong>Dockerfile</strong> will be shipped w/ the research compendium</li>
+</ul>
+<p><br></p>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Just add a file named <strong><code>Dockerfile</code></strong> at the root of your compendium</p>
+</section>
+<section id="dockerfile-1" class="slide level2">
+<h2>Dockerfile</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; The instruction <strong><code>FROM</code></strong> tells Docker what <strong>base image</strong> to start from</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb32-1"><a href=""></a><span class="co">## Base image ----</span></span>
+<span id="cb32-2"><a href=""></a><span class="kw">FROM</span> rocker/rstudio:4.4.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+</section>
+<section id="dockerfile-2" class="slide level2">
+<h2>Dockerfile</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; The instruction <strong><code>WORKDIR</code></strong> sets the <strong>working directory</strong> inside the container</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb33-1"><a href=""></a><span class="co">## Base image ----</span></span>
+<span id="cb33-2"><a href=""></a><span class="kw">FROM</span> rocker/rstudio:4.4.2</span>
+<span id="cb33-3"><a href=""></a></span>
+<span id="cb33-4"><a href=""></a><span class="co">## Working directory ----</span></span>
+<span id="cb33-5"><a href=""></a><span class="kw">WORKDIR</span> /home/rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Use the default directory ‘<code>/home/rstudio</code>’ from the base image</p>
+</div>
+</div></div>
+</section>
+<section id="dockerfile-3" class="slide level2">
+<h2>Dockerfile</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; The instruction <strong><code>COPY</code></strong> copies <strong>files</strong> from your computer inside the image</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb34-1"><a href=""></a><span class="co">## Base image ----</span></span>
+<span id="cb34-2"><a href=""></a><span class="kw">FROM</span> rocker/rstudio:4.4.2</span>
+<span id="cb34-3"><a href=""></a></span>
+<span id="cb34-4"><a href=""></a><span class="co">## Working directory ----</span></span>
+<span id="cb34-5"><a href=""></a><span class="kw">WORKDIR</span> /home/rstudio</span>
+<span id="cb34-6"><a href=""></a></span>
+<span id="cb34-7"><a href=""></a><span class="co">## Copy files ----</span></span>
+<span id="cb34-8"><a href=""></a><span class="kw">COPY</span> . /home/rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Copy all files (<code>.</code>) in the host current directory</p>
+</div>
+</div></div>
+</section>
+<section id="dockerfile-4" class="slide level2">
+<h2>Dockerfile</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; The instruction <strong><code>RUN</code></strong> executes <strong>shell commands</strong> inside the container (software installation, configuration, etc.)</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb35-1"><a href=""></a><span class="co">## Base image ----</span></span>
+<span id="cb35-2"><a href=""></a><span class="kw">FROM</span> rocker/rstudio:4.4.2</span>
+<span id="cb35-3"><a href=""></a></span>
+<span id="cb35-4"><a href=""></a><span class="co">## Working directory ----</span></span>
+<span id="cb35-5"><a href=""></a><span class="kw">WORKDIR</span> /home/rstudio</span>
+<span id="cb35-6"><a href=""></a></span>
+<span id="cb35-7"><a href=""></a><span class="co">## Copy files ----</span></span>
+<span id="cb35-8"><a href=""></a><span class="kw">COPY</span> . /home/rstudio</span>
+<span id="cb35-9"><a href=""></a></span>
+<span id="cb35-10"><a href=""></a><span class="co">## Change working directory owner ----</span></span>
+<span id="cb35-11"><a href=""></a><span class="kw">RUN</span> <span class="fu">chown</span> <span class="at">-R</span> rstudio:rstudio /home/rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; The base image creates the non root user <code>rstudio</code></p>
+</div>
+</div></div>
+</section>
+<section id="dockerfile-5" class="slide level2">
+<h2>Dockerfile</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; The instruction <strong><code>RUN</code></strong> executes <strong>shell commands</strong> inside the container (software installation, configuration, etc.)</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb36-1"><a href=""></a><span class="co">## Base image ----</span></span>
+<span id="cb36-2"><a href=""></a><span class="kw">FROM</span> rocker/rstudio:4.4.2</span>
+<span id="cb36-3"><a href=""></a></span>
+<span id="cb36-4"><a href=""></a><span class="co">## Working directory ----</span></span>
+<span id="cb36-5"><a href=""></a><span class="kw">WORKDIR</span> /home/rstudio</span>
+<span id="cb36-6"><a href=""></a></span>
+<span id="cb36-7"><a href=""></a><span class="co">## Copy files ----</span></span>
+<span id="cb36-8"><a href=""></a><span class="kw">COPY</span> . /home/rstudio</span>
+<span id="cb36-9"><a href=""></a></span>
+<span id="cb36-10"><a href=""></a><span class="co">## Change working directory owner ----</span></span>
+<span id="cb36-11"><a href=""></a><span class="kw">RUN</span> <span class="fu">chown</span> <span class="at">-R</span> rstudio:rstudio /home/rstudio</span>
+<span id="cb36-12"><a href=""></a></span>
+<span id="cb36-13"><a href=""></a><span class="co">## Install R packages ----</span></span>
+<span id="cb36-14"><a href=""></a><span class="kw">RUN</span> <span class="ex">R</span> <span class="at">-e</span> <span class="st">"install.packages('ggplot2', repos = c(CRAN = 'https://cloud.r-project.org'))"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Install packages on the fly</p>
+</div>
+</div></div>
+</section>
+<section id="dockerfile-6" class="slide level2">
+<h2>Dockerfile</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; The instruction <strong><code>RUN</code></strong> executes <strong>shell commands</strong> inside the container (software installation, configuration, etc.)</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb37-1"><a href=""></a><span class="co">## Base image ----</span></span>
+<span id="cb37-2"><a href=""></a><span class="kw">FROM</span> rocker/rstudio:4.4.2</span>
+<span id="cb37-3"><a href=""></a></span>
+<span id="cb37-4"><a href=""></a><span class="co">## Working directory ----</span></span>
+<span id="cb37-5"><a href=""></a><span class="kw">WORKDIR</span> /home/rstudio</span>
+<span id="cb37-6"><a href=""></a></span>
+<span id="cb37-7"><a href=""></a><span class="co">## Copy files ----</span></span>
+<span id="cb37-8"><a href=""></a><span class="kw">COPY</span> . /home/rstudio</span>
+<span id="cb37-9"><a href=""></a></span>
+<span id="cb37-10"><a href=""></a><span class="co">## Change working directory owner ----</span></span>
+<span id="cb37-11"><a href=""></a><span class="kw">RUN</span> <span class="fu">chown</span> <span class="at">-R</span> rstudio:rstudio /home/rstudio</span>
+<span id="cb37-12"><a href=""></a></span>
+<span id="cb37-13"><a href=""></a><span class="co">## Install R packages ----</span></span>
+<span id="cb37-14"><a href=""></a><span class="kw">RUN</span> <span class="ex">R</span> <span class="at">-e</span> <span class="st">"install.packages('devtools', repos = c(CRAN = 'https://cloud.r-project.org'))"</span></span>
+<span id="cb37-15"><a href=""></a><span class="kw">RUN</span> <span class="ex">R</span> <span class="at">-e</span> <span class="st">"devtools::install_deps()"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Install packages listed in the <code>DESCRIPTION</code> file</p>
+</div>
+</div></div>
+</section>
+<section id="dockerfile-7" class="slide level2">
+<h2>Dockerfile</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; The instruction <strong><code>RUN</code></strong> executes <strong>shell commands</strong> inside the container (software installation, configuration, etc.)</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb38-1"><a href=""></a><span class="co">## Base image ----</span></span>
+<span id="cb38-2"><a href=""></a><span class="kw">FROM</span> rocker/rstudio:4.4.2</span>
+<span id="cb38-3"><a href=""></a></span>
+<span id="cb38-4"><a href=""></a><span class="co">## Working directory ----</span></span>
+<span id="cb38-5"><a href=""></a><span class="kw">WORKDIR</span> /home/rstudio</span>
+<span id="cb38-6"><a href=""></a></span>
+<span id="cb38-7"><a href=""></a><span class="co">## Copy files ----</span></span>
+<span id="cb38-8"><a href=""></a><span class="kw">COPY</span> . /home/rstudio</span>
+<span id="cb38-9"><a href=""></a></span>
+<span id="cb38-10"><a href=""></a><span class="co">## Change working directory owner ----</span></span>
+<span id="cb38-11"><a href=""></a><span class="kw">RUN</span> <span class="fu">chown</span> <span class="at">-R</span> rstudio:rstudio /home/rstudio</span>
+<span id="cb38-12"><a href=""></a></span>
+<span id="cb38-13"><a href=""></a><span class="co">## Install R packages ----</span></span>
+<span id="cb38-14"><a href=""></a><span class="kw">RUN</span> <span class="ex">R</span> <span class="at">-e</span> <span class="st">"install.packages('devtools', repos = c(CRAN = 'https://cloud.r-project.org'))"</span> <span class="dt">\</span></span>
+<span id="cb38-15"><a href=""></a> <span class="kw">&amp;&amp;</span> <span class="ex">R</span> <span class="at">-e</span> <span class="st">"devtools::install_deps()"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Merge <strong><code>RUN</code></strong> instructions to lighten the image</p>
+</div>
+</div></div>
+</section>
+<section id="dockerfile-8" class="slide level2">
+<h2>Dockerfile</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; The instruction <strong><code>RUN</code></strong> executes <strong>shell commands</strong> inside the container (software installation, configuration, etc.)</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb39-1"><a href=""></a><span class="co">## Base image ----</span></span>
+<span id="cb39-2"><a href=""></a><span class="kw">FROM</span> rocker/rstudio:4.4.2</span>
+<span id="cb39-3"><a href=""></a></span>
+<span id="cb39-4"><a href=""></a><span class="co">## Working directory ----</span></span>
+<span id="cb39-5"><a href=""></a><span class="kw">WORKDIR</span> /home/rstudio</span>
+<span id="cb39-6"><a href=""></a></span>
+<span id="cb39-7"><a href=""></a><span class="co">## Copy files ----</span></span>
+<span id="cb39-8"><a href=""></a><span class="kw">COPY</span> . /home/rstudio</span>
+<span id="cb39-9"><a href=""></a></span>
+<span id="cb39-10"><a href=""></a><span class="co">## Change working directory owner ----</span></span>
+<span id="cb39-11"><a href=""></a><span class="kw">RUN</span> <span class="fu">chown</span> <span class="at">-R</span> rstudio:rstudio /home/rstudio</span>
+<span id="cb39-12"><a href=""></a></span>
+<span id="cb39-13"><a href=""></a><span class="co">## Install R packages ----</span></span>
+<span id="cb39-14"><a href=""></a><span class="kw">RUN</span> <span class="ex">R</span> <span class="at">-e</span> <span class="st">"install.packages('renv', repos = c(CRAN = 'https://cloud.r-project.org'))"</span> <span class="dt">\</span></span>
+<span id="cb39-15"><a href=""></a> <span class="kw">&amp;&amp;</span> <span class="ex">R</span> <span class="at">-e</span> <span class="st">"renv::restore()"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Install packages with <code>renv</code></p>
+</div>
+</div></div>
+</section>
+<section id="dockerfile-9" class="slide level2">
+<h2>Dockerfile</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; The instruction <strong><code>RUN</code></strong> executes <strong>shell commands</strong> inside the container (software installation, configuration, etc.)</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb40-1"><a href=""></a><span class="co">## Base image ----</span></span>
+<span id="cb40-2"><a href=""></a><span class="kw">FROM</span> rocker/rstudio:4.4.2</span>
+<span id="cb40-3"><a href=""></a></span>
+<span id="cb40-4"><a href=""></a><span class="co">## Working directory ----</span></span>
+<span id="cb40-5"><a href=""></a><span class="kw">WORKDIR</span> /home/rstudio</span>
+<span id="cb40-6"><a href=""></a></span>
+<span id="cb40-7"><a href=""></a><span class="co">## Copy files ----</span></span>
+<span id="cb40-8"><a href=""></a><span class="kw">COPY</span> . /home/rstudio</span>
+<span id="cb40-9"><a href=""></a></span>
+<span id="cb40-10"><a href=""></a><span class="co">## Change working directory owner ----</span></span>
+<span id="cb40-11"><a href=""></a><span class="kw">RUN</span> <span class="fu">chown</span> <span class="at">-R</span> rstudio:rstudio /home/rstudio</span>
+<span id="cb40-12"><a href=""></a></span>
+<span id="cb40-13"><a href=""></a><span class="co">## Install R packages ----</span></span>
+<span id="cb40-14"><a href=""></a><span class="kw">ENV</span> RENV_VERSION 1.0.11</span>
+<span id="cb40-15"><a href=""></a><span class="kw">RUN</span> <span class="ex">R</span> <span class="at">-e</span> <span class="st">"install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))"</span> <span class="dt">\</span></span>
+<span id="cb40-16"><a href=""></a> <span class="kw">&amp;&amp;</span> <span class="ex">R</span> <span class="at">-e</span> <span class="st">"remotes::install_github('rstudio/renv@</span><span class="va">${RENV_VERSION}</span><span class="st">')"</span> <span class="dt">\</span></span>
+<span id="cb40-17"><a href=""></a> <span class="kw">&amp;&amp;</span> <span class="ex">R</span> <span class="at">-e</span> <span class="st">"renv::restore()"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; Install packages with a frozen version of <code>renv</code></p>
+</div>
+</div></div>
+<div class="fragment">
+<p><br></p>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; With this, renv will download and install the requisite packages as appropriate when the image is created. Any new containers created from this image will hence have those <i class="fa-brands fa-r-project" aria-label="r-project"></i> packages installed at run-time.</p>
+</div>
+</section>
+<section id="the-.dockerignore" class="slide level2">
+<h2>The <code>.dockerignore</code></h2>
+<p>Like <code>git</code> it’s possible to tell Docker to <strong>ignore files</strong> when build images (instruction <strong><code>COPY</code></strong>).</p>
+<p><br></p>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Create a new file named <code>.dockerignore</code> at the root of the project</p>
+<div class="fragment">
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource dockerfile number-lines code-with-copy"><code class="sourceCode dockerfile"><span id="cb41-1"><a href=""></a><span class="co"># Large files ----</span></span>
+<span id="cb41-2"><a href=""></a>.git</span>
+<span id="cb41-3"><a href=""></a>renv/library</span>
+<span id="cb41-4"><a href=""></a>renv/local</span>
+<span id="cb41-5"><a href=""></a></span>
+<span id="cb41-6"><a href=""></a><span class="co"># History files ----</span></span>
+<span id="cb41-7"><a href=""></a>.Rhistory</span>
+<span id="cb41-8"><a href=""></a>.Rapp.history</span>
+<span id="cb41-9"><a href=""></a></span>
+<span id="cb41-10"><a href=""></a><span class="co"># Session data files ----</span></span>
+<span id="cb41-11"><a href=""></a>.RData</span>
+<span id="cb41-12"><a href=""></a>.Ruserdata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+</div>
+</section>
+<section id="build-an-image" class="slide level2">
+<h2>Build an image</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; To build a Docker image from a Dockerfile use the command <strong><code>docker build</code></strong></p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href=""></a><span class="co">## Build an image ----</span></span>
+<span id="cb42-2"><a href=""></a><span class="ex">docker</span> build <span class="at">-t</span> <span class="st">"image_name"</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i>&nbsp; The argument ‘<code>.</code>’ means that a <code>Dockerfile</code> exists in the current directory</p>
+</div>
+</div></div>
+<div class="fragment">
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href=""></a><span class="co">## List Docker images available locally ----</span></span>
+<span id="cb43-2"><a href=""></a><span class="ex">docker</span> images</span>
+<span id="cb43-3"><a href=""></a></span>
+<span id="cb43-4"><a href=""></a><span class="co">## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE</span></span>
+<span id="cb43-5"><a href=""></a><span class="co">## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB</span></span>
+<span id="cb43-6"><a href=""></a><span class="co">## rocker/r-ver   4.4.2     c2909963ee34   12 days ago     938MB</span></span>
+<span id="cb43-7"><a href=""></a><span class="co">## rocker/r-ver   4.0.1     3c5754bb465f   20 months ago   854MB</span></span>
+<span id="cb43-8"><a href=""></a><span class="co">## image_name     latest    999z9z99zzz9   1 minute ago    999MB</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href=""></a><span class="co">## Start new container ----</span></span>
+<span id="cb44-2"><a href=""></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-p</span> 8787:8787 <span class="at">-e</span> DISABLE_AUTH=true image_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i>&nbsp; Visit <a href="http://localhost:8787/" class="uri">http://localhost:8787/</a> on a web browser</p>
+</div>
+</div></div>
+</div>
+</section>
+<section id="docker-cheatsheet" class="slide level2">
+<h2>Docker cheatsheet</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href=""></a><span class="co">## Images ----</span></span>
+<span id="cb45-2"><a href=""></a></span>
+<span id="cb45-3"><a href=""></a><span class="ex">docker</span> build <span class="at">-t</span> <span class="st">"{{ IMAGE }}"</span> .                        <span class="co"># Build an image from a Dockerfile</span></span>
+<span id="cb45-4"><a href=""></a><span class="ex">docker</span> search {{ IMAGE }}                              <span class="co"># Search for an image on Docker Hub</span></span>
+<span id="cb45-5"><a href=""></a><span class="ex">docker</span> pull {{ IMAGE }}                                <span class="co"># Download a Docker image</span></span>
+<span id="cb45-6"><a href=""></a><span class="ex">docker</span> pull {{ IMAGE }}:{{ TAG }}                      <span class="co"># ... with a specific version</span></span>
+<span id="cb45-7"><a href=""></a><span class="ex">docker</span> images                                          <span class="co"># List local images</span></span>
+<span id="cb45-8"><a href=""></a><span class="ex">docker</span> rmi {{ IMAGE }}:{{ TAG }}                       <span class="co"># Delete a local image</span></span>
+<span id="cb45-9"><a href=""></a></span>
+<span id="cb45-10"><a href=""></a></span>
+<span id="cb45-11"><a href=""></a><span class="co">## Container creation ----</span></span>
+<span id="cb45-12"><a href=""></a></span>
+<span id="cb45-13"><a href=""></a><span class="ex">docker</span> run <span class="at">-d</span> {{ IMAGE }}:{{ TAG }}                    <span class="co"># Start a new container (in the background)</span></span>
+<span id="cb45-14"><a href=""></a><span class="ex">docker</span> run <span class="at">-it</span> {{ IMAGE }}:{{ TAG }}                   <span class="co"># Start a new container (interactive mode)</span></span>
+<span id="cb45-15"><a href=""></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">--name</span> <span class="st">"{{ CONTAINER }}"</span> {{ IMAGE }}    <span class="co"># Set a custom name</span></span>
+<span id="cb45-16"><a href=""></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span> {{ IMAGE }}:{{ TAG }}              <span class="co"># Delete container after stopped</span></span>
+<span id="cb45-17"><a href=""></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">-v</span> {{ DIR }}:{{ DIR }} {{ IMAGE }}      <span class="co"># Volume mapping</span></span>
+<span id="cb45-18"><a href=""></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">-p</span> {{ PORT }}:{{ PORT }} {{ IMAGE }}    <span class="co"># Port mapping</span></span>
+<span id="cb45-19"><a href=""></a></span>
+<span id="cb45-20"><a href=""></a></span>
+<span id="cb45-21"><a href=""></a><span class="co">## Container monitoring ----</span></span>
+<span id="cb45-22"><a href=""></a></span>
+<span id="cb45-23"><a href=""></a><span class="ex">docker</span> ps                                              <span class="co"># List containers</span></span>
+<span id="cb45-24"><a href=""></a><span class="ex">docker</span> ps <span class="at">-a</span>                                           <span class="co"># List containers (stopped included)</span></span>
+<span id="cb45-25"><a href=""></a><span class="ex">docker</span> stats                                           <span class="co"># Containers statistics</span></span>
+<span id="cb45-26"><a href=""></a></span>
+<span id="cb45-27"><a href=""></a></span>
+<span id="cb45-28"><a href=""></a><span class="co">## Container management ----</span></span>
+<span id="cb45-29"><a href=""></a></span>
+<span id="cb45-30"><a href=""></a><span class="ex">docker</span> start {{ CONTAINER }}                           <span class="co"># Re(start) a container</span></span>
+<span id="cb45-31"><a href=""></a><span class="ex">docker</span> exec <span class="at">-it</span> {{ CONTAINER }}                        <span class="co"># Re-enter in a container</span></span>
+<span id="cb45-32"><a href=""></a><span class="ex">docker</span> stop {{ CONTAINER }}                            <span class="co"># Stop a container</span></span>
+<span id="cb45-33"><a href=""></a><span class="ex">docker</span> rm {{ CONTAINER }}                              <span class="co"># Delete a container</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+</section>
+<section id="thanks" class="title-slide slide level1 center">
+<h1>Thanks!</h1>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="images/logo-affiliation.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p><i class="fa-brands fa-github" aria-label="github"></i> &nbsp;<a href="https://github.com/rdatatoolbox/course-docker"><code>rdatatoolbox/course-docker</code></a> &nbsp; • &nbsp; <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> &nbsp;<a href="https://creativecommons.org/licenses/by/4.0/deed.en"><code>cc-by-4.0</code></a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="index_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="index_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': true,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
