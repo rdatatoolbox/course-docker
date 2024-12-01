@@ -1,0 +1,1416 @@
+## Context
+
+- **`Research compendium`** for file organization
+- Writing **`functions`** for code optimization
+- **`Quarto`** | **`RMarkdown`** for literate programming
+- **`git`** for version control
+- **`GitHub`** for sharing & collaboration
+- **`renv`** to freeze {{< fa brands r-project >}} packages (and their versions)
+
+<br/>
+
+. . .
+
+
+{{< fa circle-right >}} &nbsp;What about the **computational environment**?
+
+:::: {.columns}
+
+::: {.column width=4%}
+:::
+
+
+::: {.column width=97%}
+- Software and system libraries
+- Operating system
+:::
+
+
+::::
+
+
+## Context
+
+
+:::: {.columns}
+::: {.column .center width=50%}
+![](images/collab.png){width='85%'}
+:::
+
+::: {.column .center width=50%}
+:::
+
+::::
+
+
+## Context
+
+
+:::: {.columns}
+::: {.column .center width=50%}
+![](images/collab.png){width='85%'}
+:::
+
+::: {.column .center width=50%}
+![](images/collab-1.png){width='85%'}
+:::
+
+::::
+
+## Context
+
+
+:::: {.columns}
+::: {.column .center width=50%}
+![](images/collab.png){width='85%'}
+:::
+
+::: {.column .center width=50%}
+![](images/collab-2.png){width='85%'}
+:::
+
+::::
+
+
+
+## Introducing Docker
+
+:::: {.columns}
+
+::: {.column width=30%}
+![](images/docker-logo.jpg){width='90%' fig-align='center'}
+:::
+
+::: {.column width=70%}
+- Free and open-source software
+- Containerization technology
+- Platform for developing, shipping, and running applications
+- Docker containers are lightweight, portable and isolated from the underlying infrastructure and other containers
+:::
+
+::::
+
+. . .
+
+<br/>
+
+<!--
+
+> **Containerization** allows applications and their dependencies to be packaged into self-contained units called _containers_.
+
+
+. . .
+
+-->
+
+![](images/versus-2.png){width='60%' fig-align='center'}
+
+
+
+
+## Concepts
+
+
+![](images/docker-pipeline.png){width='60%' fig-align='center'}
+
+<br/>
+
+. . .
+
+:::: {.columns}
+
+::: {.column width=33%}
+::: {.center}
+**`Dockerfile`**<br>
+_the blueprint_
+:::
+
+- A plain text file
+- A set of **instructions** to create a custom image
+- Can be shipped w/ the compendium
+:::
+
+::: {.column width=33%}
+:::
+
+::: {.column width=33%}
+:::
+
+::::
+
+
+
+## Concepts
+
+
+![](images/docker-pipeline.png){width='60%' fig-align='center'}
+
+<br/>
+
+
+:::: {.columns}
+
+::: {.column width=33%}
+::: {.center}
+**`Dockerfile`**<br>
+_the blueprint_
+:::
+
+- A plain text file
+- A set of **instructions** to create a custom image
+- Can be shipped w/ the compendium
+:::
+
+::: {.column width=33%}
+::: {.center}
+**`Docker Image`**<br>
+_the template_
+:::
+
+- Built from a Dockerfile
+- A read-only (immutable) **template** used to create containers
+- Can be shared on Docker Hub
+:::
+
+::: {.column width=33%}
+:::
+
+::::
+
+
+## Concepts
+
+
+![](images/docker-pipeline.png){width='60%' fig-align='center'}
+
+<br/>
+
+
+:::: {.columns}
+
+::: {.column width=33%}
+::: {.center}
+**`Dockerfile`**<br>
+_the blueprint_
+:::
+
+- A plain text file
+- A set of **instructions** to create a custom image
+- Can be shipped w/ the compendium
+:::
+
+::: {.column width=33%}
+::: {.center}
+**`Docker Image`**<br>
+_the template_
+:::
+
+- Built from a Dockerfile
+- A read-only (immutable) **template** used to create containers
+- Can be shared on Docker Hub
+:::
+
+::: {.column width=33%}
+::: {.center}
+**`Docker Container`**<br>
+_the executive instance_
+:::
+
+- Generated from a Docker image
+- Contains the entire package needed to **run the application**
+- User interacts only w/ containers
+:::
+
+::::
+
+
+. . .
+
+<br/>
+
+{{< fa hand-point-right >}}&nbsp; A Docker image is **immutable** and will always create the same container<br/>
+
+
+## Where can I find Docker images?
+
+
+{{< fa hand-point-right >}}&nbsp; [**Docker Hub**](https://hub.docker.com/search): the Official Docker registry
+
+![](images/docker-hub.png){width='80%' fig-align='center'}
+
+
+
+## Where can I find Docker images for {{< fa brands r-project >}}?
+
+{{< fa hand-point-right >}}&nbsp; The [**Rocker project**](https://rocker-project.org/)
+
+![](images/rocker-img.png){width='50%' fig-align='center'}
+
+
+## Download a Docker image
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+```sh
+## Download latest version of R ----
+docker pull rocker/r-ver
+```
+
+::: {.small}
+ {{< fa hand-point-right >}}&nbsp; `docker pull`  will download a Docker image from [Docker Hub](https://hub.docker.com/r/rocker/r-ver)
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+:::
+
+::::
+
+
+## Download a Docker image
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Download latest version of R ----
+docker pull rocker/r-ver
+```
+
+::: {.small}
+ {{< fa hand-point-right >}}&nbsp; `docker pull`  will download a Docker image from [Docker Hub](https://hub.docker.com/r/rocker/r-ver)
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+```sh
+## List Docker images available locally ----
+docker images
+
+## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
+## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB
+```
+:::
+
+::::
+
+
+
+
+
+## Download a Docker image
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Download latest version of R ----
+docker pull rocker/r-ver
+```
+
+::: {.small}
+ {{< fa hand-point-right >}}&nbsp; `docker pull`  will download a Docker image from [Docker Hub](https://hub.docker.com/r/rocker/r-ver)
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+```sh
+## List Docker images available locally ----
+docker images
+
+## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
+## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB
+```
+:::
+
+::::
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+```sh
+## Download a specific version of R ----
+docker pull rocker/r-ver:4.4.2
+```
+
+::: {.small}
+ {{< fa hand-point-right >}}&nbsp; For a **better reproducibility**, specify the **tag** (version) of the image
+:::
+:::
+
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+```sh
+## List Docker images available locally ----
+docker images
+
+## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
+## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB
+## rocker/r-ver   4.4.2     c2909963ee34   12 days ago     938MB
+```
+:::
+
+::::
+
+
+
+
+## Download a Docker image
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Download latest version of R ----
+docker pull rocker/r-ver
+```
+
+::: {.small}
+ {{< fa hand-point-right >}}&nbsp; `docker pull`  will download a Docker image from [Docker Hub](https://hub.docker.com/r/rocker/r-ver)
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+```sh
+## List Docker images available locally ----
+docker images
+
+## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
+## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB
+```
+:::
+
+::::
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+```sh
+## Download a specific version of R ----
+docker pull rocker/r-ver:4.4.2
+```
+
+::: {.small}
+ {{< fa hand-point-right >}}&nbsp; For a **better reproducibility**, specify the **tag** (version) of the image
+:::
+:::
+
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+
+```sh
+## List Docker images available locally ----
+docker images
+
+## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
+## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB
+## rocker/r-ver   4.4.2     c2909963ee34   12 days ago     938MB
+```
+:::
+
+::::
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Download a specific version of R ----
+docker pull rocker/r-ver:4.0.1
+```
+
+::: {.small}
+{{< fa hand-point-right >}}&nbsp; With Docker it's easy to install **different versions** of the same software
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+
+```sh
+## List Docker images available locally ----
+docker images
+
+## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
+## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB
+## rocker/r-ver   4.4.2     c2909963ee34   12 days ago     938MB
+## rocker/r-ver   4.0.1     3c5754bb465f   20 months ago   854MB
+```
+:::
+
+::::
+
+
+
+
+## Run a Docker container
+
+
+{{< fa hand-point-right >}}&nbsp; Example with the Docker image `rocker/r-ver`
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Run a container from an image  ----
+docker run -it rocker/r-ver:4.4.2
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; The flag **`-it`** allows you to interact w/ the container
+
+By default, the `rocker/r-ver` image provides direct access to {{< fa brands r-project >}}
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+```
+R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+>
+```
+:::
+
+::::
+
+. . .
+
+<br/>
+
+We are using {{< fa brands r-project >}} inside a Docker container and we can work as usual.
+
+
+. . .
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```{r}
+#| echo: true
+#| eval: false
+
+## Create a file from R inside a container  ----
+file.create("README.md")
+
+## Install a package ----
+install.packages("devtools")
+```
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+{{< fa lightbulb >}}&nbsp; Type `q()` to quit {{< fa brands r-project >}} and stop the container.
+:::
+
+::::
+
+
+. . .
+
+<br/>
+
+::: {.small}
+{{< fa warning >}}&nbsp; **Important**
+
+- Data created inside a Docker container do **not persist**: the `README.md` file and the `devtools` package will be lost when closing the container.
+- Docker containers are **isolated**: containers don't have access to user files (Guest OS)
+:::
+
+
+## Run a Docker container
+
+
+{{< fa hand-point-right >}}&nbsp; Example with the Docker image `rocker/r-ver`
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Run a container from an image  ----
+docker run -it rocker/r-ver:4.4.2 bash
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; Instead we can access to a **Linux Shell** by adding **`bash`** and open {{< fa brands r-project >}} later from the container by calling **`R`**
+
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+```
+root@c038f516feb1:/# 
+```
+:::
+
+::::
+
+
+
+
+## Run a Docker container
+
+
+{{< fa hand-point-right >}}&nbsp; Example with the Docker image `rocker/r-ver`
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Run a container from an image  ----
+docker run -it rocker/r-ver:4.4.2 bash
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; Instead we can access to a **Linux Shell** by adding **`bash`** and open {{< fa brands r-project >}} later from the container by calling **`R`**
+
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+```
+root@c038f516feb1:/# 
+
+root@c038f516feb1:/# cat /etc/issue
+## Ubuntu 24.04.1 LTS
+```
+:::
+
+::::
+
+. . .
+
+<br/>
+
+We are using **`bash`** inside a Docker container and we can work as usual.
+
+
+. . .
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Update system  ----
+apt update && apt upgrade -y
+
+## Install a software ----
+apt install figlet
+
+## Use new tool ----
+figlet 'Inside Docker'
+```
+
+```
+ ___           _     _        ____             _
+|_ _|_ __  ___(_) __| | ___  |  _ \  ___   ___| | _____ _ __
+ | || '_ \/ __| |/ _` |/ _ \ | | | |/ _ \ / __| |/ / _ \ '__|
+ | || | | \__ \ | (_| |  __/ | |_| | (_) | (__|   <  __/ |
+|___|_| |_|___/_|\__,_|\___| |____/ \___/ \___|_|\_\___|_|
+```
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+<br/>
+
+{{< fa lightbulb >}}&nbsp; Type `exit` to quit **`bash`** and stop the container 
+:::
+
+::::
+
+
+## Container monitoring
+
+{{< fa hand-point-right >}}&nbsp; Use `docker ps` to check the status of your containers
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Monitor Docker containers  ----
+docker ps -a
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; Add the flag **`-a`** to list stopped containers too
+
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+:::
+
+::::
+
+<br/>
+
+
+```
+CONTAINER ID   IMAGE                COMMAND   CREATED          STATUS                      PORTS     NAMES
+f466117bb7f3   rocker/r-ver:4.0.1   "R"       9 seconds ago    Up 8 seconds                          beautiful_poitras
+cb1f8498bc55   rocker/r-ver:4.4.2   "bash"    21 seconds ago   Exited (0) 17 seconds ago             zealous_borg
+```
+
+
+. . .
+
+<br/>
+
+{{< fa lightbulb >}}&nbsp; You can add the flag **`--rm`** to `docker run` to automatically destroy the container when it's stopped.
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Start a new Docker container ----
+docker run --rm -it rocker/r-ver:4.4.2
+```
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+:::
+
+::::
+
+
+## Container management
+
+Some useful commands to manage your containers
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Restart a Docker container  ----
+docker start cb1f8498bc55
+```
+
+::: {.small}
+{{< fa hand-point-right >}}&nbsp; Use **`docker start`** to restart a stopped container
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+:::
+
+::::
+
+. . .
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Re-enter inside a Docker container  ----
+docker exec -it cb1f8498bc55 bash
+```
+
+::: {.small}
+{{< fa hand-point-right >}}&nbsp; Use **`docker exec -it`** to re-enter inside a container
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+:::
+
+::::
+
+. . .
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Stop a Docker container  ----
+docker stop cb1f8498bc55
+```
+
+::: {.small}
+{{< fa hand-point-right >}}&nbsp; Use **`docker stop`** to stop a container
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+:::
+
+::::
+
+
+. . .
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Destroy a Docker container  ----
+docker rm cb1f8498bc55
+```
+
+::: {.small}
+{{< fa hand-point-right >}}&nbsp; Use **`docker rm`** to destroy a container
+:::
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+:::
+
+::::
+
+
+
+## Volume mapping
+
+- Links a Docker container to a persistent storage location on the host system
+- Allows **data to persist** even after the container is stopped or removed
+- Enables **data sharing** between containers and the host system
+
+<br/>
+
+> Any file created in the host volume (directory) will be accessible by the container through the linked volume.<br/>And vice versa.
+
+
+. . .
+
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=55%}
+
+```sh
+## Create a volume mapping  ----
+docker run -it -v host_directory:container_directory rocker/r-ver:4.4.2
+```
+
+::: {.small}
+{{< fa hand-point-right >}}&nbsp; Use the flag **`-v`** to map a volume
+:::
+:::
+::::
+
+
+
+## RStudio image
+
+{{< fa hand-point-right >}}&nbsp; Another example: the Docker image `rocker/rstudio`
+
+> Contains [RStudio Server](https://posit.co/download/rstudio-server/) and enables you to run the RStudio from your web browser
+
+. . .
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+
+```sh
+## Download RStudio server image  ----
+docker pull rocker/rstudio:4.4.2
+
+## Start RStudio server container ----
+docker run --rm -p 8787:8787 rocker/rstudio:4.4.2
+```
+
+::: {.small}
+{{< fa hand-point-right >}}&nbsp; The flag **`-p`** specifies the **port mapping** (access a container through a web browser)
+:::
+:::
+::::
+
+
+. . .
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=48%}
+::: {.small}
+{{< fa hand-point-right >}}&nbsp; On a web browser visit <http://localhost:8787>
+
+- Username is **`rstudio`**
+- Password is displayed in the terminal
+:::
+:::
+
+::: {.column width=52%}
+![](images/rstudio-login.png){width=35%}
+:::
+::::
+
+
+## RStudio image
+
+![](images/rstudio-docker.png){width=80% fig-align='center'}
+
+
+::: {.small}
+{{< fa hand-point-right >}}&nbsp; Press **`CTRL + C`** in the terminal to stop the container
+:::
+
+
+## Dockerfile
+
+
+![](images/docker-pipeline.png){width='60%' fig-align='center'}
+
+<br/>
+
+A **Dockerfile** is a blueprint (recipe) defining how to create a Docker image
+
+- A plain text file
+- A set of **instructions** to create a custom image
+- Always based on another Docker image
+- The **Dockerfile** will be shipped w/ the research compendium
+
+<br/>
+
+
+{{< fa hand-point-right >}}&nbsp; Just add a file named **`Dockerfile`** at the root of your compendium
+
+
+## Dockerfile
+
+{{< fa hand-point-right >}}&nbsp; The instruction **`FROM`** tells Docker what **base image** to start from
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=65%}
+```dockerfile
+## Base image ----
+FROM rocker/rstudio:4.4.2
+```
+:::
+
+::::
+
+
+## Dockerfile
+
+{{< fa hand-point-right >}}&nbsp; The instruction **`WORKDIR`** sets the **working directory** inside the container
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=65%}
+```dockerfile
+## Base image ----
+FROM rocker/rstudio:4.4.2
+
+## Working directory ----
+WORKDIR /home/rstudio
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; Use the default directory '`/home/rstudio`' from the base image
+:::
+:::
+
+::::
+
+
+
+## Dockerfile
+
+{{< fa hand-point-right >}}&nbsp; The instruction **`COPY`** copies **files** from your computer inside the image
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=65%}
+```dockerfile
+## Base image ----
+FROM rocker/rstudio:4.4.2
+
+## Working directory ----
+WORKDIR /home/rstudio
+
+## Copy files ----
+COPY . /home/rstudio
+```
+::: {.small}
+{{< fa lightbulb >}}&nbsp; Copy all files (`.`) in the host current directory
+:::
+:::
+
+::::
+
+
+
+
+## Dockerfile
+
+{{< fa hand-point-right >}}&nbsp; The instruction **`RUN`** executes **shell commands** inside the container (software installation, configuration, etc.)
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=65%}
+```dockerfile
+## Base image ----
+FROM rocker/rstudio:4.4.2
+
+## Working directory ----
+WORKDIR /home/rstudio
+
+## Copy files ----
+COPY . /home/rstudio
+
+## Change working directory owner ----
+RUN chown -R rstudio:rstudio /home/rstudio
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; The base image creates the non root user `rstudio`
+:::
+:::
+
+::::
+
+
+
+
+## Dockerfile
+
+{{< fa hand-point-right >}}&nbsp; The instruction **`RUN`** executes **shell commands** inside the container (software installation, configuration, etc.)
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=65%}
+```dockerfile
+## Base image ----
+FROM rocker/rstudio:4.4.2
+
+## Working directory ----
+WORKDIR /home/rstudio
+
+## Copy files ----
+COPY . /home/rstudio
+
+## Change working directory owner ----
+RUN chown -R rstudio:rstudio /home/rstudio
+
+## Install R packages ----
+RUN R -e "install.packages('ggplot2', repos = c(CRAN = 'https://cloud.r-project.org'))"
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; Install packages on the fly
+:::
+:::
+
+::::
+
+
+
+## Dockerfile
+
+{{< fa hand-point-right >}}&nbsp; The instruction **`RUN`** executes **shell commands** inside the container (software installation, configuration, etc.)
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=65%}
+```dockerfile
+## Base image ----
+FROM rocker/rstudio:4.4.2
+
+## Working directory ----
+WORKDIR /home/rstudio
+
+## Copy files ----
+COPY . /home/rstudio
+
+## Change working directory owner ----
+RUN chown -R rstudio:rstudio /home/rstudio
+
+## Install R packages ----
+RUN R -e "install.packages('devtools', repos = c(CRAN = 'https://cloud.r-project.org'))"
+RUN R -e "devtools::install_deps()"
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; Install packages listed in the `DESCRIPTION` file
+:::
+:::
+
+::::
+
+
+
+## Dockerfile
+
+{{< fa hand-point-right >}}&nbsp; The instruction **`RUN`** executes **shell commands** inside the container (software installation, configuration, etc.)
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=65%}
+```dockerfile
+## Base image ----
+FROM rocker/rstudio:4.4.2
+
+## Working directory ----
+WORKDIR /home/rstudio
+
+## Copy files ----
+COPY . /home/rstudio
+
+## Change working directory owner ----
+RUN chown -R rstudio:rstudio /home/rstudio
+
+## Install R packages ----
+RUN R -e "install.packages('devtools', repos = c(CRAN = 'https://cloud.r-project.org'))" \
+ && R -e "devtools::install_deps()"
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; Merge **`RUN`** instructions to lighten the image
+:::
+:::
+
+::::
+
+
+
+## Dockerfile
+
+{{< fa hand-point-right >}}&nbsp; The instruction **`RUN`** executes **shell commands** inside the container (software installation, configuration, etc.)
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=65%}
+```dockerfile
+## Base image ----
+FROM rocker/rstudio:4.4.2
+
+## Working directory ----
+WORKDIR /home/rstudio
+
+## Copy files ----
+COPY . /home/rstudio
+
+## Change working directory owner ----
+RUN chown -R rstudio:rstudio /home/rstudio
+
+## Install R packages ----
+RUN R -e "install.packages('renv', repos = c(CRAN = 'https://cloud.r-project.org'))" \
+ && R -e "renv::restore()"
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; Install packages with `renv`
+:::
+:::
+
+::::
+
+
+
+## Dockerfile
+
+{{< fa hand-point-right >}}&nbsp; The instruction **`RUN`** executes **shell commands** inside the container (software installation, configuration, etc.)
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=65%}
+```dockerfile
+## Base image ----
+FROM rocker/rstudio:4.4.2
+
+## Working directory ----
+WORKDIR /home/rstudio
+
+## Copy files ----
+COPY . /home/rstudio
+
+## Change working directory owner ----
+RUN chown -R rstudio:rstudio /home/rstudio
+
+## Install R packages ----
+ENV RENV_VERSION 1.0.11
+RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))" \
+ && R -e "remotes::install_github('rstudio/renv@${RENV_VERSION}')" \
+ && R -e "renv::restore()"
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; Install packages with a frozen version of `renv`
+:::
+:::
+
+::::
+
+
+. . .
+
+<br/>
+
+{{< fa hand-point-right >}}&nbsp; With this, renv will download and install the requisite packages as appropriate when the image is created. Any new containers created from this image will hence have those {{< fa brands r-project >}} packages installed at run-time.
+
+
+## The `.dockerignore`
+
+
+Like `git` it's possible to tell Docker to **ignore files** when build images (instruction **`COPY`**).
+
+<br/>
+
+{{< fa hand-point-right >}}&nbsp; Create a new file named `.dockerignore` at the root of the project
+
+
+. . .
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=50%}
+```dockerfile
+# Large files ----
+.git
+renv/library
+renv/local
+
+# History files ----
+.Rhistory
+.Rapp.history
+
+# Session data files ----
+.RData
+.Ruserdata
+```
+:::
+::::
+
+
+## Build an image
+
+{{< fa hand-point-right >}}&nbsp; To build a Docker image from a Dockerfile use the command **`docker build`**
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=50%}
+```sh
+## Build an image ----
+docker build -t "image_name" .
+```
+
+::: {.small}
+{{< fa lightbulb >}}&nbsp; The argument '`.`' means that a `Dockerfile` exists in the current directory
+:::
+:::
+::::
+
+
+. . .
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=50%}
+```sh
+## List Docker images available locally ----
+docker images
+
+## REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
+## rocker/r-ver   latest    c2909963ee34   12 days ago     938MB
+## rocker/r-ver   4.4.2     c2909963ee34   12 days ago     938MB
+## rocker/r-ver   4.0.1     3c5754bb465f   20 months ago   854MB
+## image_name     latest    999z9z99zzz9   1 minute ago    999MB
+```
+:::
+::::
+
+
+. . .
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width=50%}
+
+```sh
+## Start new container ----
+docker run --rm -p 8787:8787 -e DISABLE_AUTH=true image_name
+```
+
+::: {.small}
+{{< fa hand-point-right >}}&nbsp; Visit <http://localhost:8787/> on a web browser
+:::
+:::
+::::
+
+
+
+
+## Docker cheatsheet
+
+:::: {.columns}
+
+::: {.column width=70%}
+```sh
+## Images ----
+
+docker build -t "{{ IMAGE }}" .                        # Build an image from a Dockerfile
+docker search {{ IMAGE }}                              # Search for an image on Docker Hub
+docker pull {{ IMAGE }}                                # Download a Docker image
+docker pull {{ IMAGE }}:{{ TAG }}                      # ... with a specific version
+docker images                                          # List local images
+docker rmi {{ IMAGE }}:{{ TAG }}                       # Delete a local image
+
+
+## Container creation ----
+
+docker run -d {{ IMAGE }}:{{ TAG }}                    # Start a new container (in the background)
+docker run -it {{ IMAGE }}:{{ TAG }}                   # Start a new container (interactive mode)
+docker run -it --name "{{ CONTAINER }}" {{ IMAGE }}    # Set a custom name
+docker run --rm -it {{ IMAGE }}:{{ TAG }}              # Delete container after stopped
+docker run -it -v {{ DIR }}:{{ DIR }} {{ IMAGE }}      # Volume mapping
+docker run -it -p {{ PORT }}:{{ PORT }} {{ IMAGE }}    # Port mapping
+
+
+## Container monitoring ----
+
+docker ps                                              # List containers
+docker ps -a                                           # List containers (stopped included)
+docker stats                                           # Containers statistics
+
+
+## Container management ----
+
+docker start {{ CONTAINER }}                           # Re(start) a container
+docker exec -it {{ CONTAINER }}                        # Re-enter in a container
+docker stop {{ CONTAINER }}                            # Stop a container
+docker rm {{ CONTAINER }}                              # Delete a container
+```
+:::
+
+::::
+
+
+
+# Thanks!
