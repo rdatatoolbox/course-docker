@@ -15,7 +15,7 @@ Docker for R users
 :::
 
 ::: {.subtitle}
-A gentle introduction to containerization
+A very gentle introduction to containerization
 :::
 
 ::: {.date}

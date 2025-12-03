@@ -1,30 +1,41 @@
 ## Context
 
-- **`Research compendium`** for file organization
-- Writing **`functions`** for code optimization
-- **`Quarto`** | **`RMarkdown`** for literate programming
-- **`git`** for version control
-- **`GitHub`** for sharing & collaboration
-- **`renv`** to freeze {{< fa brands r-project >}} packages (and their versions)
+
+{{< fa check >}}&nbsp; **`Research compendium`** for file organization
+
+{{< fa check >}}&nbsp; Writing **`functions`** for code optimization
+
+
+{{< fa check >}}&nbsp; **`Quarto`** (or **`RMarkdown`**) for literate programming
+
+
+{{< fa check >}}&nbsp; **`git`** for version control
+
+
+{{< fa check >}}&nbsp; **`GitHub`** for sharing & collaboration
+
+
+{{< fa check >}}&nbsp; **`renv`** to freeze {{< fa brands r-project >}} packages (and their versions)
 
 <br/>
 
 . . .
 
 
-{{< fa circle-right >}} &nbsp;What about the **computational environment**?
+{{< fa circle-right >}} &nbsp;What about:
+
 
 :::: {.columns}
 
-::: {.column width=4%}
+::: {.column width=3%}
 :::
 
 
 ::: {.column width=97%}
+- {{< fa brands r-project >}} &nbsp;version
 - Software and system libraries
 - Operating system
 :::
-
 
 ::::
 
@@ -567,6 +578,7 @@ install.packages("devtools")
 - Docker containers are **isolated**: containers don't have access to user files (Guest OS)
 :::
 
+<!--
 
 ## Run a Docker container
 
@@ -893,7 +905,7 @@ docker run -it -v host_directory:container_directory rocker/r-ver:4.4.2
 :::
 ::::
 
-
+-->
 
 ## RStudio image
 
